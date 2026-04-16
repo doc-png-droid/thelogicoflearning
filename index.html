@@ -1080,7 +1080,7 @@ function renderAll(){
     cd.forEach(function(d){
       const card=document.createElement('div');
       card.className='disp-card';card.dataset.id=d.id;
-      card.innerHTML='<div class="card-num" style="color:'+CC[d.cluster]+'">Disposition '+d.num+'</div>'
+      card.innerHTML='<div class="card-num" style="color:'+CC[d.cluster]+'">Habit '+d.num+'</div>'
         +'<div class="card-title">'+d.title+'</div>'
         +'<div class="card-preview">'+d.preview+'</div>'
         +'<span class="card-tag" style="background:'+CCL[d.cluster]+';color:'+CC[d.cluster]+'">'+d.tag+'</span>'
