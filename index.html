@@ -1,0 +1,1220 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>The Logic of Learning — Effortful Thinking Habits</title>
+<link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;1,9..40,300&display=swap" rel="stylesheet">
+<style>
+:root{--bg:#F5F2EC;--surface:#FFFFFF;--ink:#1C1B18;--ink-2:#4A4843;--ink-3:#8C8A84;--border:#E2DDD6;--accent:#2D4A3E;--c1:#2D4A3E;--c1l:#E6EFEC;--c2:#4A3520;--c2l:#F0EAE0;--c3:#3A2D5C;--c3l:#EDE9F5;--c4:#5C2828;--c4l:#F5EAEA;--ff-head:'DM Serif Display',Georgia,serif;--ff-body:'DM Sans',system-ui,sans-serif;--r:10px;--shadow:0 2px 16px rgba(0,0,0,0.08);}
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
+body{font-family:var(--ff-body);background:var(--bg);color:var(--ink);min-height:100vh;}
+header{background:var(--ink);color:#fff;padding:3rem 2rem 2.5rem;text-align:center;position:relative;overflow:hidden;}
+header::before{content:'';position:absolute;inset:0;background:repeating-linear-gradient(-45deg,transparent,transparent 40px,rgba(255,255,255,0.018) 40px,rgba(255,255,255,0.018) 80px);}
+.eyebrow{font-size:0.7rem;font-weight:500;letter-spacing:0.18em;text-transform:uppercase;color:rgba(255,255,255,0.5);margin-bottom:0.75rem;}
+header h1{font-family:var(--ff-head);font-size:clamp(2rem,5vw,3.2rem);font-weight:400;line-height:1.15;position:relative;}
+header h1 em{font-style:italic;color:#A8C5B8;}
+header p.sub{margin-top:1rem;font-size:0.95rem;color:rgba(255,255,255,0.6);max-width:640px;margin-inline:auto;line-height:1.65;position:relative;}
+.cluster-nav{display:flex;flex-wrap:wrap;gap:0.5rem;justify-content:center;padding:1.5rem 1rem 0.5rem;}
+.cluster-btn{font-family:var(--ff-body);font-size:0.78rem;font-weight:500;letter-spacing:0.04em;text-transform:uppercase;padding:0.45rem 1rem;border-radius:999px;border:1.5px solid transparent;cursor:pointer;transition:all 0.18s;background:var(--surface);}
+.cluster-btn.all{background:var(--ink);color:#fff;border-color:var(--ink);}
+.cluster-btn[data-c="1"]{background:var(--c1l);color:var(--c1);border-color:var(--c1);}
+.cluster-btn[data-c="2"]{background:var(--c2l);color:var(--c2);border-color:var(--c2);}
+.cluster-btn[data-c="3"]{background:var(--c3l);color:var(--c3);border-color:var(--c3);}
+.cluster-btn[data-c="4"]{background:var(--c4l);color:var(--c4);border-color:var(--c4);}
+.cluster-btn:hover{opacity:0.82;}
+.search-row{display:flex;justify-content:center;padding:1.25rem 1rem 0;}
+.search-row input{font-family:var(--ff-body);font-size:0.88rem;width:min(420px,100%);padding:0.6rem 1rem;border-radius:999px;border:1.5px solid var(--border);background:var(--surface);color:var(--ink);outline:none;transition:border-color 0.15s;}
+.search-row input:focus{border-color:var(--accent);}
+main{max-width:1200px;margin:0 auto;padding:2rem 1.25rem 4rem;}
+.cluster-section{margin-bottom:2.5rem;}
+.cluster-section[data-c="1"]{--cc:var(--c1);--ccl:var(--c1l);}
+.cluster-section[data-c="2"]{--cc:var(--c2);--ccl:var(--c2l);}
+.cluster-section[data-c="3"]{--cc:var(--c3);--ccl:var(--c3l);}
+.cluster-section[data-c="4"]{--cc:var(--c4);--ccl:var(--c4l);}
+.cluster-header-row{display:flex;align-items:baseline;gap:0.75rem;margin-bottom:1rem;padding-bottom:0.6rem;border-bottom:2px solid var(--cc);}
+.cluster-roman{font-family:var(--ff-head);font-style:italic;font-size:1.1rem;color:var(--cc);}
+.cluster-title{font-family:var(--ff-head);font-size:1.35rem;font-weight:400;color:var(--ink);}
+.cluster-sub{font-size:0.8rem;color:var(--ink-3);margin-left:auto;white-space:nowrap;}
+.card-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(215px,1fr));gap:0.875rem;}
+.disp-card{background:var(--surface);border:1.5px solid var(--border);border-radius:var(--r);padding:1.1rem 1.1rem 0.9rem;cursor:pointer;transition:box-shadow 0.18s,transform 0.18s,border-color 0.18s;position:relative;overflow:hidden;}
+.disp-card::after{content:'';position:absolute;top:0;left:0;width:3px;height:100%;background:var(--cc);opacity:0;transition:opacity 0.18s;}
+.disp-card:hover{box-shadow:var(--shadow);transform:translateY(-2px);border-color:var(--cc);}
+.disp-card:hover::after,.disp-card.active::after{opacity:1;}
+.disp-card.active{border-color:var(--cc);box-shadow:0 0 0 2px var(--cc);}
+.card-num{font-size:0.65rem;font-weight:500;letter-spacing:0.1em;color:var(--cc);text-transform:uppercase;margin-bottom:0.35rem;}
+.card-title{font-family:var(--ff-head);font-size:1rem;line-height:1.25;color:var(--ink);margin-bottom:0.5rem;}
+.card-preview{font-size:0.78rem;color:var(--ink-3);line-height:1.5;display:-webkit-box;-webkit-line-clamp:3;-webkit-box-orient:vertical;overflow:hidden;}
+.card-tag{display:inline-block;margin-top:0.6rem;font-size:0.65rem;font-weight:500;letter-spacing:0.06em;text-transform:uppercase;padding:0.2rem 0.55rem;border-radius:4px;background:var(--ccl);color:var(--cc);}
+.card-btns{display:flex;gap:0.4rem;margin-top:0.75rem;flex-wrap:wrap;}
+.card-btn{font-family:var(--ff-body);font-size:0.65rem;font-weight:500;letter-spacing:0.04em;text-transform:uppercase;padding:0.28rem 0.65rem;border-radius:4px;border:1.5px solid;cursor:pointer;transition:all 0.15s;background:transparent;}
+.card-btn-quick{border-color:var(--cc);color:var(--cc);}
+.card-btn-quick:hover{background:var(--ccl);}
+.card-btn-deep{border-color:var(--ink-3);color:var(--ink-3);}
+.card-btn-deep:hover{border-color:var(--ink-2);color:var(--ink-2);background:var(--bg);}
+#detail-panel{position:fixed;top:0;right:0;width:min(480px,100vw);height:100vh;background:var(--surface);border-left:1.5px solid var(--border);box-shadow:-4px 0 32px rgba(0,0,0,0.1);z-index:100;display:flex;flex-direction:column;transform:translateX(100%);transition:transform 0.28s cubic-bezier(0.22,1,0.36,1);overflow:hidden;}
+#detail-panel.open{transform:translateX(0);}
+.panel-top{padding:1.5rem 1.5rem 1.25rem;border-bottom:1px solid var(--border);position:relative;}
+.panel-eyebrow{font-size:0.65rem;font-weight:500;letter-spacing:0.12em;text-transform:uppercase;margin-bottom:0.4rem;}
+.panel-title{font-family:var(--ff-head);font-size:1.7rem;font-weight:400;line-height:1.15;color:var(--ink);}
+.panel-close{position:absolute;top:1.25rem;right:1.25rem;width:32px;height:32px;border-radius:50%;border:1.5px solid var(--border);background:transparent;cursor:pointer;display:flex;align-items:center;justify-content:center;font-size:1rem;color:var(--ink-2);transition:background 0.15s;}
+.panel-close:hover{background:var(--bg);}
+.panel-body{padding:1.5rem;overflow-y:auto;flex:1;}
+.panel-tag{display:inline-block;font-size:0.65rem;font-weight:500;letter-spacing:0.08em;text-transform:uppercase;padding:0.25rem 0.7rem;border-radius:4px;margin-bottom:1.25rem;}
+.panel-section-label{font-size:0.68rem;font-weight:500;letter-spacing:0.12em;text-transform:uppercase;color:var(--ink-3);margin-bottom:0.5rem;margin-top:1.5rem;}
+.panel-section-label:first-of-type{margin-top:0;}
+.panel-body p{font-size:0.9rem;line-height:1.7;color:var(--ink-2);}
+.panel-body ul{list-style:none;display:flex;flex-direction:column;gap:0.4rem;}
+.panel-body ul li{font-size:0.87rem;line-height:1.55;color:var(--ink-2);padding-left:1.1rem;position:relative;}
+.panel-body ul li::before{content:'\2192';position:absolute;left:0;color:var(--panel-cc,var(--accent));font-size:0.75rem;}
+.dev-grid{display:grid;grid-template-columns:1fr 1fr;gap:0.6rem;margin-top:0.5rem;}
+.dev-cell{background:var(--bg);border-radius:6px;padding:0.6rem 0.75rem;}
+.dev-cell-band{font-size:0.65rem;font-weight:500;letter-spacing:0.06em;text-transform:uppercase;color:var(--panel-cc,var(--accent));margin-bottom:0.25rem;}
+.dev-cell p{font-size:0.78rem!important;color:var(--ink-2);line-height:1.45!important;}
+.panel-nav{display:flex;gap:0.5rem;padding:1rem 1.5rem;border-top:1px solid var(--border);background:var(--surface);}
+.panel-nav button{flex:1;font-family:var(--ff-body);font-size:0.8rem;font-weight:500;padding:0.6rem;border-radius:6px;border:1.5px solid var(--border);background:transparent;cursor:pointer;color:var(--ink-2);transition:all 0.15s;}
+.panel-nav button:hover{background:var(--bg);border-color:var(--ink-3);}
+#deep-panel{position:fixed;top:0;left:0;width:100vw;height:100vh;background:var(--surface);z-index:200;display:flex;flex-direction:column;transform:translateY(100%);transition:transform 0.32s cubic-bezier(0.22,1,0.36,1);}
+#deep-panel.open{transform:translateY(0);}
+.deep-header{display:flex;align-items:flex-start;justify-content:space-between;padding:2rem 2.5rem 1.5rem;border-bottom:1px solid var(--border);flex-shrink:0;}
+.deep-eyebrow{font-size:0.68rem;font-weight:500;letter-spacing:0.14em;text-transform:uppercase;margin-bottom:0.5rem;}
+.deep-title{font-family:var(--ff-head);font-size:clamp(1.6rem,3vw,2.4rem);font-weight:400;line-height:1.15;color:var(--ink);}
+.deep-subtitle{font-size:0.95rem;color:var(--ink-3);margin-top:0.4rem;font-style:italic;}
+.deep-close{flex-shrink:0;margin-left:2rem;margin-top:0.25rem;width:36px;height:36px;border-radius:50%;border:1.5px solid var(--border);background:transparent;cursor:pointer;display:flex;align-items:center;justify-content:center;font-size:1.1rem;color:var(--ink-2);transition:background 0.15s;}
+.deep-close:hover{background:var(--bg);}
+.deep-body{overflow:hidden;flex:1;display:flex;}
+.deep-sidebar{width:220px;flex-shrink:0;border-right:1px solid var(--border);padding:1.5rem 0;overflow-y:auto;}
+.deep-sidebar-item{padding:0.55rem 1.5rem;font-size:0.82rem;color:var(--ink-3);cursor:pointer;transition:all 0.15s;border-left:3px solid transparent;}
+.deep-sidebar-item:hover{color:var(--ink-2);background:var(--bg);}
+.deep-sidebar-item.active{color:var(--deep-cc,var(--accent));border-left-color:var(--deep-cc,var(--accent));background:var(--bg);font-weight:500;}
+.deep-content{flex:1;padding:2.5rem 3rem;overflow-y:auto;max-width:820px;}
+.deep-section{display:none;}
+.deep-section.visible{display:block;}
+.deep-section-title{font-family:var(--ff-head);font-size:1.4rem;font-weight:400;color:var(--ink);margin-bottom:1rem;padding-bottom:0.6rem;border-bottom:1.5px solid var(--border);}
+.deep-p{font-size:0.93rem;line-height:1.78;color:var(--ink-2);margin-bottom:1rem;}
+.deep-ul{list-style:none;display:flex;flex-direction:column;gap:0.6rem;margin-bottom:1.25rem;}
+.deep-ul li{font-size:0.9rem;line-height:1.6;color:var(--ink-2);padding-left:1.2rem;position:relative;}
+.deep-ul li::before{content:'\2192';position:absolute;left:0;color:var(--deep-cc,var(--accent));font-size:0.78rem;top:0.15rem;}
+.deep-subsection-title{font-size:0.92rem;font-weight:500;color:var(--ink);margin:1.4rem 0 0.65rem;border-left:3px solid var(--deep-cc,var(--accent));padding-left:0.65rem;}
+.deep-sounds-grid{display:grid;grid-template-columns:1fr;gap:0.8rem;margin-top:0.5rem;}
+.deep-sound-card{background:var(--bg);border-radius:8px;padding:1rem 1.1rem;border-left:3px solid var(--deep-cc,var(--accent));}
+.deep-sound-band{font-size:0.68rem;font-weight:500;letter-spacing:0.08em;text-transform:uppercase;color:var(--deep-cc,var(--accent));margin-bottom:0.35rem;}
+.deep-sound-text{font-size:0.88rem;line-height:1.6;color:var(--ink-2);}
+.deep-throughline{background:var(--bg);border-radius:8px;padding:1.4rem 1.6rem;border-left:4px solid var(--deep-cc,var(--accent));margin-top:0.5rem;}
+.deep-throughline p{font-size:0.93rem;line-height:1.75;color:var(--ink);font-style:italic;}
+.deep-nav{display:flex;gap:0.5rem;padding:1rem 2rem;border-top:1px solid var(--border);background:var(--surface);flex-shrink:0;align-items:center;}
+.deep-nav button{font-family:var(--ff-body);font-size:0.8rem;font-weight:500;padding:0.6rem 1.25rem;border-radius:6px;border:1.5px solid var(--border);background:transparent;cursor:pointer;color:var(--ink-2);transition:all 0.15s;}
+.deep-nav button:hover{background:var(--bg);}
+.deep-nav-title{flex:1;display:flex;align-items:center;justify-content:center;font-size:0.82rem;color:var(--ink-3);}
+#overlay{position:fixed;inset:0;background:rgba(28,27,24,0.35);z-index:99;opacity:0;pointer-events:none;transition:opacity 0.25s;}
+#overlay.show{opacity:1;pointer-events:auto;}
+footer{text-align:center;font-size:0.75rem;color:var(--ink-3);padding:1.5rem;border-top:1px solid var(--border);}
+footer a{color:var(--accent);text-decoration:none;}
+@media(max-width:700px){.cluster-sub{display:none;}.card-grid{grid-template-columns:1fr 1fr;}.deep-sidebar{display:none;}.deep-content{padding:1.5rem;}.deep-header{padding:1.25rem 1.5rem;}}
+</style>
+</head>
+<body>
+<header>
+  <div class="eyebrow">A Science of Learning Framework &#xB7; K&#x2013;12</div>
+  <h1>The Logic of Learning<br><em style="font-size:0.65em;">Effortful Thinking Dispositions</em></h1>
+  <p class="sub">20 cognitive practices &#x2014; grounded in the science of learning &#x2014; that students can develop in every class, at every grade level. Each card offers a <em>Framework View</em> quick reference or a full <em>In Practice</em> deep dive with instruction, assessment, and grade-level examples.</p>
+</header>
+<div class="cluster-nav">
+  <button class="cluster-btn all" onclick="filterCluster('all')">All 20</button>
+  <button class="cluster-btn" data-c="1" onclick="filterCluster('1')">I &#xB7; Encounter &amp; Processing</button>
+  <button class="cluster-btn" data-c="2" onclick="filterCluster('2')">II &#xB7; Building &amp; Connecting</button>
+  <button class="cluster-btn" data-c="3" onclick="filterCluster('3')">III &#xB7; Retrieving &amp; Testing</button>
+  <button class="cluster-btn" data-c="4" onclick="filterCluster('4')">IV &#xB7; Monitoring &amp; Regulating</button>
+</div>
+<div class="search-row">
+  <input type="search" id="search-input" placeholder="Search dispositions&#x2026;" oninput="handleSearch(this.value)">
+</div>
+<main id="main-content"></main>
+<div id="overlay" onclick="closeAll()"></div>
+<div id="detail-panel">
+  <div class="panel-top">
+    <div class="panel-eyebrow" id="panel-eyebrow"></div>
+    <div class="panel-title" id="panel-title"></div>
+    <button class="panel-close" onclick="closePanel()" aria-label="Close">&#x2715;</button>
+  </div>
+  <div class="panel-body" id="panel-body"></div>
+  <div class="panel-nav">
+    <button onclick="navPanel(-1)">&#x2190; Previous</button>
+    <button onclick="navPanel(1)">Next &#x2192;</button>
+  </div>
+</div>
+<div id="deep-panel">
+  <div class="deep-header">
+    <div>
+      <div class="deep-eyebrow" id="deep-eyebrow"></div>
+      <div class="deep-title" id="deep-title"></div>
+      <div class="deep-subtitle" id="deep-subtitle"></div>
+    </div>
+    <button class="deep-close" onclick="closeDeep()" aria-label="Close">&#x2715;</button>
+  </div>
+  <div class="deep-body">
+    <nav class="deep-sidebar" id="deep-sidebar"></nav>
+    <div class="deep-content" id="deep-content"></div>
+  </div>
+  <div class="deep-nav">
+    <button onclick="navDeep(-1)">&#x2190; Previous</button>
+    <div class="deep-nav-title" id="deep-nav-label"></div>
+    <button onclick="navDeep(1)">Next &#x2192;</button>
+  </div>
+</div>
+<footer>
+  Created 2026. LOGICOFLEARNING       The 'Logic of Learning' is a framework of underlying principles that makes learning coherent, meaningful, and purposeful. It moves beyond asking what works in teaching to asking why it works, examining the reasoning behind instructional decisions across the core components of the educative process and from the science of learning. These include the management of cognitive load, the intentional development of knowledge and skills, the meaningful application of content, and the purposeful use of time as a measure of effective teaching. It helps build accountability for designing learning experiences where clarity of purpose, rigor, and relevance are in deliberate balance, and where students are active participants in making meaning. Ultimately, the logic of learning is made visible through assessment, not merely as measurement, but as the mirror that reflects the outcomes of thoughtful, well-structured teaching, and the genuine understanding it produces.
+</footer>
+<script>
+const CLUSTERS=[
+  {id:'1',roman:'I',title:'Encounter & Processing',sub:'how students take in new ideas'},
+  {id:'2',roman:'II',title:'Building & Connecting',sub:'how students construct understanding'},
+  {id:'3',roman:'III',title:'Retrieving & Testing',sub:'how students strengthen and verify knowledge'},
+  {id:'4',roman:'IV',title:'Monitoring & Regulating',sub:'how students govern their own thinking'},
+];
+const DISPOSITIONS=[
+  {id:1,cluster:'1',num:'01',title:'Prior Knowledge Activating',tag:'cognitive anchor',preview:'Connecting new information to what is already known, creating a hook so new material has something durable to attach to.'},
+  {id:2,cluster:'1',num:'02',title:'Meaning-Making',tag:'depth of processing',preview:'Attributing significance and relevance to ideas rather than processing them as isolated facts.'},
+  {id:3,cluster:'1',num:'03',title:'Purposeful Attending',tag:'cognitive load management',preview:'Directing cognitive bandwidth toward what matters most, resisting distraction and focusing on central content.'},
+  {id:4,cluster:'1',num:'04',title:'Productive Struggling',tag:'desirable difficulty',preview:'Persisting through the discomfort of not yet knowing long enough for understanding to form.'},
+  {id:5,cluster:'1',num:'05',title:'Questioning Deeply',tag:'effortful inquiry',preview:'Generating how and why questions rather than stopping at what, pressing past surface answers into the mechanism beneath.'},
+  {id:6,cluster:'2',num:'06',title:'Elaborating',tag:'knowledge construction',preview:'Adding detail, context, and explanation to an idea, going beyond restating it to explaining how it works and why it is true.'},
+  {id:7,cluster:'2',num:'07',title:'Connecting Across Concepts',tag:'schema-building',preview:'Identifying relationships between ideas within and across domains, building the web that makes knowledge flexible.'},
+  {id:8,cluster:'2',num:'08',title:'Analogical Reasoning',tag:'mental model formation',preview:'Using a known structure to illuminate an unfamiliar one, building mental models from familiar territory onto new ideas.'},
+  {id:9,cluster:'2',num:'09',title:'Principled Explaining',tag:'deep encoding',preview:'Constructing explanations that go beyond procedure to articulate the underlying principle, not just what but how and why.'},
+  {id:10,cluster:'2',num:'10',title:'Contrasting Cases',tag:'discrimination learning',preview:'Deliberately comparing related concepts to sharpen understanding of each, identifying what differs and why it matters.'},
+  {id:11,cluster:'3',num:'11',title:'Effortful Recalling',tag:'retrieval practice',preview:'Reconstructing knowledge from memory with deliberate effort, the act of retrieval that strengthens memory traces.'},
+  {id:12,cluster:'3',num:'12',title:'Predicting',tag:'generative learning',preview:'Using existing knowledge to anticipate what will happen, creating a cognitive frame for new learning to enter.'},
+  {id:13,cluster:'3',num:'13',title:'Hypothesis Testing',tag:'evidence-based reasoning',preview:'Forming a tentative explanation and checking it against evidence, treating understanding as a claim to verify.'},
+  {id:14,cluster:'3',num:'14',title:'Applying',tag:'transfer',preview:'Using knowledge in a context different from where it was learned, the measure of whether understanding can travel.'},
+  {id:15,cluster:'3',num:'15',title:'Error Analyzing',tag:'feedback processing',preview:'Treating mistakes as diagnostic information, examining why an error occurred and what it reveals about understanding.'},
+  {id:16,cluster:'4',num:'16',title:'Calibrating',tag:'metacognitive accuracy',preview:'Accurately judging the gap between what one knows and what one needs to know, resisting the illusion of knowing.'},
+  {id:17,cluster:'4',num:'17',title:'Revising Thinking',tag:'adaptive thinking',preview:'Updating a previous understanding in light of new evidence, treating learning as successive approximation.'},
+  {id:18,cluster:'4',num:'18',title:'Sustaining Focus',tag:'cognitive persistence',preview:'Maintaining concentrated attention on a demanding task long enough for deep processing to occur.'},
+  {id:19,cluster:'4',num:'19',title:'Reasoning Aloud',tag:'visible thinking',preview:'Externalizing thinking, articulating not just the answer but the path taken, making cognitive work visible and available for feedback.'},
+  {id:20,cluster:'4',num:'20',title:'Intellectual Courage',tag:'learning identity',preview:'Willingness to engage with hard ideas, revise thinking publicly, take intellectual risks. The dispositional engine beneath all the rest.'},
+];
+const INST={
+  1:{ip:["Begin every unit with a diagnostic prompt: 'What do you already know or think you know about X?'","Use anticipation guides — students agree/disagree with statements before instruction","Ask 'what does this remind you of?' before introducing new content","Use concept maps completed from memory at the start of a unit","Pose a problem requiring prior knowledge before teaching the solution"],ap:["Pre-unit knowledge surveys compared to post-unit results","KWL charts used diagnostically (Know / Want to know / Learned)","Students write what they know before; annotate it after","Short written predictions to surface misconceptions"],db:[{b:"K–2",t:"Tell me what you know about ___ before we begin."},{b:"3–5",t:"Linking diagrams — student draws connections to previous units"},{b:"6–8",t:"Pre-reading prediction with justification from prior knowledge"},{b:"9–12",t:"Schema maps: where does this concept fit in what I already know?"}]},
+  2:{ip:["Always pair a new fact with a 'why does this matter?' prompt","Use 'so what?' as a genuine discussion protocol, not rhetorical","Ask students to connect content to real-world or personal significance","Frame lessons with a driving question that gives content a purpose","Use Socratic discussion to press beyond what to why and so what"],ap:["Exit tickets: 'Why did what we learned today matter?'","Journal entries connecting content to prior knowledge or life","Require a 'significance statement' in written responses","Discussion rubric rewarding connection-making over fact-recitation"],db:[{b:"K–2",t:"'Why do you think this matters?' sentence frame"},{b:"3–5",t:"Connection logs: real life to lesson content"},{b:"6–8",t:"So-what paragraphs after every major concept"},{b:"9–12",t:"Transfer tasks requiring applying significance to new contexts"}]},
+  3:{ip:["Explicitly tell students what to attend to: 'The key idea here is…'","Reduce visual and auditory clutter in instructional materials","Break tasks into smaller steps — remove unnecessary complexity early","Use worked examples to reduce extraneous load before independent practice","Pause and ask: 'What is the most important idea so far?'"],ap:["Students identify and underline the central claim in a passage","Ask students to reduce a concept to a single sentence","'What were you thinking about during this task?' reflection prompts","Observe who attends to the task vs. the surface features"],db:[{b:"K–2",t:"'Point to the most important part.' Physical directing"},{b:"3–5",t:"Margin annotations: star the key idea, cross out details"},{b:"6–8",t:"Note-taking formats requiring selection, not transcription"},{b:"9–12",t:"Synthesis tasks: distill a complex text to its essential argument"}]},
+  4:{ip:["Name the struggle: 'This is supposed to feel hard — that means it's working'","Give students a problem to attempt before teaching the solution method","Use productive failure tasks designed to surface incomplete understanding","Build in think time: do not rescue students from silence immediately","Normalize not-knowing as the starting point, not a failure state"],ap:["Assess quality of attempts, not just correct answers","Struggle-reflection in rubrics: 'Where did you get stuck and what did you try?'","Low-stakes pre-unit tasks where effort quality is graded, not accuracy","Portfolio entries documenting thinking over time, including dead ends"],db:[{b:"K–2",t:"Praise persistence: 'You kept trying — that\\'s what makes us smarter'"},{b:"3–5",t:"Try-first tasks with 'what did you try?' as part of the hand-in"},{b:"6–8",t:"Productive failure assignments scored on process quality"},{b:"9–12",t:"Research tasks with documented dead ends and pivots"}]},
+  5:{ip:["Model 'why' and 'how' questions explicitly — contrast with surface questions","Require students to generate questions before and after reading/instruction","Use Socratic seminars where the currency is the quality of questions","Post question starters: 'What would happen if…?' 'Why does…?' 'How does this connect…?'","Replace recall questions with explanation prompts: not 'what' but 'how do you know?'"],ap:["Question quality rubrics — assess depth and connection in student-generated questions","Exit ticket: 'Write the most important question this lesson raised for you'","Seminars graded on quality of questions posed, not just responses given","Question journals — ongoing log of questions generated during a unit"],db:[{b:"K–2",t:"'Why do you think that? How do you know?'"},{b:"3–5",t:"Question sort: fact questions vs. thinking questions"},{b:"6–8",t:"Generating questions as a pre-reading and pre-discussion ritual"},{b:"9–12",t:"Driving question development: students frame their own inquiry"}]},
+  6:{ip:["Require students to explain their answers, not just state them","Use 'say more' as a standing protocol in discussion","Elaborative interrogation: 'Why is this true?' built into every lesson","Sentence frames: 'This is important because…' / 'This connects to… because…'","Partner summaries requiring elaboration beyond the original text"],ap:["Written responses scored on depth of elaboration, not length","Rubrics distinguishing restatement from elaboration from original analysis","'Explain it to someone who wasn't in class' tasks","Oral explanation protocols with probing follow-up questions"],db:[{b:"K–2",t:"'Tell me more about that. Can you explain it a different way?'"},{b:"3–5",t:"Elaboration sentence starters in writing"},{b:"6–8",t:"Written explanations scored on elaboration depth"},{b:"9–12",t:"Long-form explanation essays requiring sustained elaboration"}]},
+  7:{ip:["Use concept mapping as a regular instructional tool","Ask 'where have we seen something like this before?' across units","Use interleaving — mix problem types from different topics","Post a 'connected ideas' wall students contribute to throughout a unit","Frame review as synthesis: 'How do the ideas from this unit connect?'"],ap:["Unit synthesis tasks: draw or explain connections between main ideas","Concept maps generated from memory then refined","Cross-domain transfer tasks applying ideas from one context to another","Assessments asking: 'How does this connect to what we learned in [prior unit]?'"],db:[{b:"K–2",t:"Web diagrams: what does this connect to?"},{b:"3–5",t:"Unit connection journals"},{b:"6–8",t:"Cross-unit synthesis papers"},{b:"9–12",t:"Inter-disciplinary transfer tasks"}]},
+  8:{ip:["Model analogical reasoning: 'This is like X because the structure is similar in this way…'","Ask students to generate their own analogies for new concepts","Use analogy as a comprehension check: 'Explain this as if it were something familiar'","Deliberately connect new topics to well-understood everyday systems","Critique weak analogies together — where does the comparison break down?"],ap:["Analogy explanation tasks: student generates and defends an analogy","Analogy quality rubrics assessing mapping accuracy and explanatory power","'Explain this to a younger student using only things they already know'","Compare two student-generated analogies and evaluate which is more accurate"],db:[{b:"K–2",t:"'This is like ___. How is it like that?'"},{b:"3–5",t:"Analogy sentence frames with justification"},{b:"6–8",t:"Student-generated analogy with written defense"},{b:"9–12",t:"Analogy critique — where does the comparison fail?"}]},
+  9:{ip:["Always ask 'why does this work?' after students demonstrate a correct procedure","Use 'teach it back' tasks — explaining to a peer requires principled understanding","Worked examples that show reasoning, not just steps","Require justification: 'Prove why this is true, don't just show it'","Use 'explain the rule' rather than 'apply the rule' as a first task"],ap:["Explanation rubrics scoring depth of principle articulation","Written justification tasks: 'Explain why this method works'","Oral explanation during individual conferencing","Error analysis: 'Why is this incorrect? What principle does it violate?'"],db:[{b:"K–2",t:"'Why does that work? Tell me in your own words.'"},{b:"3–5",t:"Rule-explanation tasks: write the rule, then explain it"},{b:"6–8",t:"Proof-based tasks in math and argumentation in writing"},{b:"9–12",t:"Socratic defense of underlying principles"}]},
+  10:{ip:["Present two worked examples differing in one key way — ask what changed and why","Use 'same or different?' as a regular discussion prompt for related concepts","Deliberately teach common confusions: 'Students often mix these up — here's why they're different'","Compare and contrast before teaching the full definition of either term","Use non-examples alongside examples to sharpen concept boundaries"],ap:["Compare/contrast tasks requiring explanation of why differences matter","Identify the error: 'These two are being confused — explain the distinction'","Venn diagrams from memory with written explanation of key differences","Paragraph tasks: 'Explain the critical difference between X and Y'"],db:[{b:"K–2",t:"Side-by-side comparisons: 'How are these the same? Different?'"},{b:"3–5",t:"Comparison charts with 'why it matters' column"},{b:"6–8",t:"Written contrast paragraphs focused on the key distinguishing feature"},{b:"9–12",t:"Conceptual analysis tasks: why does this distinction matter in practice?"}]},
+  11:{ip:["Low-stakes quizzes at the start of every lesson on prior content","Brain dumps: 'Without looking, write everything you remember about…'","Spaced retrieval — regularly revisit content from previous weeks/units","Flashcard practice done as active recall, not passive re-reading","Exit tickets requiring retrieval, not just comprehension of today's lesson"],ap:["Frequent low-stakes quizzes as learning tools, not just measurement","Cumulative assessments requiring retrieval of older content","Retrieval practice logs: students track what they retrieved and what needs work","No-notes quizzes followed by immediate feedback and re-study"],db:[{b:"K–2",t:"Oral retrieval: 'Without looking, tell me what you remember'"},{b:"3–5",t:"Daily 3-question retrieval warm-up"},{b:"6–8",t:"Spaced retrieval quizzes across a unit; self-scoring"},{b:"9–12",t:"Interleaved retrieval practice across multiple units"}]},
+  12:{ip:["Before reading or instruction: 'What do you predict will happen, and why?'","Before a concept: 'What do you think the answer to this problem is?'","Use prediction as pre-assessment — what students predict reveals what they know","Return to predictions after learning: 'Were you right? What changed your thinking?'","Use prediction journals throughout units"],ap:["Prediction accuracy with explanation: 'What did you predict and what happened?'","Pre/post prediction records showing thinking development","Exit ticket: 'What do you predict we'll learn next, based on today?'","Assess quality of prediction reasoning, not just accuracy"],db:[{b:"K–2",t:"Cover prediction: 'What do you think this will be about?'"},{b:"3–5",t:"Prediction journals with return visits after learning"},{b:"6–8",t:"Pre-reading hypothesis writing with evidence-based reasoning"},{b:"9–12",t:"Scientific/historical prediction with probabilistic reasoning"}]},
+  13:{ip:["Frame tasks as investigations: 'What's your hypothesis? How would you test it?'","Use CER (Claim-Evidence-Reasoning) frameworks across all content areas","Ask students: 'What evidence would change your mind?' before they look","Distinguish between 'what I think' and 'what the evidence shows'","Celebrate when evidence contradicts a hypothesis: 'The data surprised us — what now?'"],ap:["Hypothesis documentation: state, test, revise — all three steps visible","CER rubrics applied to writing, discussion, and problem-solving","Ask students to find evidence against their own claim","Lab reports and argument tasks requiring genuine revision of initial thinking"],db:[{b:"K–2",t:"'What do you think will happen? Let's find out.'"},{b:"3–5",t:"I think / I found / This means three-part frame"},{b:"6–8",t:"CER writing across science, social studies, ELA"},{b:"9–12",t:"Full scientific argument structure with counter-evidence"}]},
+  14:{ip:["Design tasks requiring applying content to novel, realistic contexts","Use problem-based learning with genuine ambiguity","Explicitly connect classroom content to real-world situations","Ask 'where else have you seen this? Where else could you use this?'","Progressively transfer responsibility — guided then independent then transfer tasks"],ap:["Transfer tasks: apply a concept to a scenario never seen in instruction","Performance tasks requiring knowledge in realistic contexts","Portfolio entries demonstrating application across multiple contexts","Near transfer vs. far transfer tasks at different grade levels"],db:[{b:"K–2",t:"'Can you use what we learned somewhere else today?'"},{b:"3–5",t:"Real-world application tasks connected to community or home"},{b:"6–8",t:"Scenario-based transfer tasks with novel context"},{b:"9–12",t:"Authentic performance tasks requiring multi-concept application"}]},
+  15:{ip:["Return marked work with: 'Before you look at the grade, find your errors and explain them'","Class-wide error analysis: 'Here's a common mistake — why do people make it?'","Celebrate genuine intellectual errors — distinguish from careless mistakes","Build revision into the assessment cycle so errors always lead to analysis","Use worked examples with intentional errors for students to identify and explain"],ap:["Error explanation tasks: 'Describe the error and the correct reasoning'","Revision portfolios with annotated corrections","Test corrections with required explanation of why the answer was wrong","Error journals: students track patterns in their own mistakes over time"],db:[{b:"K–2",t:"'What happened here? What would you do differently?'"},{b:"3–5",t:"Find-the-error tasks in already-completed work"},{b:"6–8",t:"Error analysis required alongside every test correction"},{b:"9–12",t:"Error pattern journals across a semester"}]},
+  16:{ip:["Self-assessment before and after retrieval tasks: 'How confident? How accurate?'","Use low-stakes quizzes to expose the gap between feeling-of-knowing and actual knowing","Teach students to distinguish between recognition and recall","Require confidence ratings before submitting answers","Debrief the gap between predicted and actual performance"],ap:["Confidence ratings alongside answers — compare accuracy to confidence","Pre-test self-assessment followed by post-test comparison","Calibration journals tracking accuracy predictions over time","Metacognitive reflection: 'Were you right about what you knew?'"],db:[{b:"K–2",t:"Thumbs up/middle/down: 'how sure are you?' before checking"},{b:"3–5",t:"Traffic light self-assessment before and after quizzes"},{b:"6–8",t:"Confidence ratings with accuracy tracking across a unit"},{b:"9–12",t:"Metacognitive calibration journals; study plan based on gap analysis"}]},
+  17:{ip:["'My thinking has changed because…' as a standing sentence stem in discussion and writing","Build revision cycles into every writing and problem-solving assignment","Celebrate publicly when a student changes their mind with good reason","Use 'then vs. now' comparisons to show thinking development over time","Ask: 'What would you have to see to change your mind about this?'"],ap:["Annotated revisions: student marks what changed and explains why","Draft histories in writing portfolios showing thinking development","Discussion observations that credit intellectual pivots","'Before and after' thinking records as part of portfolio assessment"],db:[{b:"K–2",t:"'Did your thinking change? What changed it?'"},{b:"3–5",t:"Before/after thinking journals; revision celebrations"},{b:"6–8",t:"Draft-to-draft annotation of what changed and why"},{b:"9–12",t:"Intellectual autobiography: tracing how thinking on X developed"}]},
+  18:{ip:["Build extended thinking time into lessons — practice sustained attention as a skill","Use silent writing and thinking rituals as regular practice","Design tasks long enough to require sustained attention with clear checkpoints","Name the experience: 'Your brain is going to want to quit — notice that and stay with it'","Reduce external interruptions and design low-distraction instructional environments"],ap:["Extended response tasks that cannot be completed in a few minutes","Observation of on-task behavior during sustained work periods","Self-regulation reflections: 'Describe a moment you wanted to give up and didn\\'t'","Timed retrieval tasks requiring sustained focus throughout"],db:[{b:"K–2",t:"Gradually extended silent work periods with explicit praise for sustaining"},{b:"3–5",t:"Stamina-building writing tasks; chart sustained focus growth"},{b:"6–8",t:"Independent project phases requiring extended daily focus"},{b:"9–12",t:"Research and writing tasks requiring multi-session sustained effort"}]},
+  19:{ip:["Model think-alouds during instruction — narrate your own thinking process explicitly","Require 'show your thinking' as a non-negotiable in written and oral work","Pair students to talk through their reasoning before writing","Use structured protocols: 'first I noticed… then I thought… which led me to…'","Cold call on the reasoning, not the answer: 'Walk me through how you got there'"],ap:["Process-visible assessments: 'Show and explain your reasoning, not just the answer'","Oral conferencing where students explain their thinking step-by-step","Written think-alouds embedded in assessments","Rubrics scoring reasoning quality independent of answer accuracy"],db:[{b:"K–2",t:"'Tell me what you're thinking while you work.' Oral think-aloud"},{b:"3–5",t:"Written reasoning alongside every answer"},{b:"6–8",t:"Annotated problem-solving; reasoning graded independently of accuracy"},{b:"9–12",t:"Socratic oral examination; written think-aloud protocols"}]},
+  20:{ip:["Name and celebrate intellectual risk-taking explicitly and regularly","Model intellectual vulnerability: share your own uncertainty and revision aloud","Create a mastery-oriented classroom where growth matters more than performance","Use sentence stems: 'I used to think… but now I think… because…'","Normalize being wrong as the first draft of understanding","Protect students who share uncertain ideas from peer ridicule — enforce norms firmly"],ap:["Assess quality of intellectual risk-taking in discussion rubrics","Portfolio reflections: 'Where did you push yourself to stay in the difficulty?'","Participation rubrics rewarding genuine thinking over polished performance","'What changed your mind?' as a graded exit prompt","Self-assessment: 'Rate your intellectual courage this unit and explain'"],db:[{b:"K–2",t:"'It\\'s brave to share an idea when you\\'re not sure. Let\\'s try.'"},{b:"3–5",t:"Celebrate mind-changes; 'brave thinker' recognition"},{b:"6–8",t:"Discussion rubrics that score intellectual risk-taking explicitly"},{b:"9–12",t:"Intellectual autobiography and semester-long courage self-assessment"}]},
+};
+
+
+// DEEP DIVE DATA — one entry per disposition
+// Each has: overview, foundational, sections (each with title + paragraphs + bullets),
+// soundsLike (grade band examples), and throughLine
+
+const DEEPDIVES = {
+
+  1: {
+    title: 'Prior Knowledge Activating',
+    subtitle: 'How students use what they already know to learn what they don\'t yet know',
+    overview: 'Before a student can take in new information, their brain needs something to attach it to. Prior Knowledge Activating is the deliberate practice of surfacing that existing mental architecture before instruction begins. It is not a warm-up activity or a review ritual — it is a cognitive necessity. New learning that has nothing to connect to is like a nail hammered into air: it goes nowhere and holds nothing.',
+    foundational: 'Cognitive science is unambiguous on this point: students make sense of new information in relation to what they already know. The mind is not a blank slate that fills up — it is a web that grows. Every new idea needs an anchor point in existing knowledge. When that anchor is absent or wrong, learning is shallow and temporary. When it is present and accurate, new knowledge integrates deeply and becomes retrievable. This is why two students can sit in the same lesson and one learns and one doesn\'t — the difference is often not ability, but the richness of the prior knowledge web each brought to the room.',
+    sections: [
+      {
+        title: 'What separates activation from review',
+        paragraphs: ['Most teachers review prior content before moving forward — but review and activation are not the same cognitive act. Review asks students to receive information again. Activation asks students to generate it from memory, connect it to what is coming, and identify where their understanding is strong or shaky. The difference matters enormously: activation is effortful and generative; review is passive and confirmatory.', 'The most powerful activation happens when students are slightly uncertain — when they have to work to surface what they know rather than simply confirming it. That productive uncertainty is exactly what primes the brain to receive new information as meaningful.'],
+        bullets: []
+      },
+      {
+        title: 'What it looks like in instruction',
+        paragraphs: ['Effective Prior Knowledge Activating does not require elaborate preparation. It requires a commitment to beginning every unit, lesson, and topic with a genuine question about what students already carry with them — and then using the answers diagnostically, not decoratively.'],
+        bullets: [
+          'Anticipation guides: students agree or disagree with 4–5 statements before instruction begins — not to be right, but to commit to a position that instruction will then confirm, complicate, or overturn',
+          'Concept maps from memory: students draw what they know about a topic before any new input — gaps and misconceptions become visible immediately',
+          'Problem-first sequences: present the problem before teaching the solution method, so students must reach into prior knowledge to attempt it',
+          '"What does this connect to?" as a standing opening question across every subject',
+          'Pre-unit diagnostic writing: "Write for 3 minutes about everything you know about ___" — ungraded, generative, and revealing'
+        ]
+      },
+      {
+        title: 'The misconception problem',
+        paragraphs: ['Prior knowledge is not always correct. Students arrive with misconceptions — firmly held, often deeply embedded beliefs that feel true but are not. If a teacher activates prior knowledge and then ignores what surfaces, those misconceptions persist beneath the new learning and actively interfere with it. The student appears to have learned; in reality, the misconception is still doing the cognitive work.', 'This is why activation must be followed by explicit engagement with what students said. Misconceptions need to be named, examined, and worked through — not simply overwritten with correct information. Overwriting does not work. The misconception survives and resurfaces under pressure.'],
+        bullets: []
+      },
+      {
+        title: 'What it sounds like across grade levels',
+        paragraphs: [],
+        bullets: [
+          'K–2 (Science, plants unit): Teacher holds up a seed and asks: "Has anyone ever planted something? What did it need? What do you think is inside here?" Students call out — soil, water, sun, a tiny plant. Teacher records all of it, right and wrong, and returns to the list throughout the unit',
+          '3–5 (Math, fractions): Before introducing equivalent fractions, teacher asks students to draw what one-half looks like three different ways. Reveals the range of mental models in the room before any instruction happens',
+          '6–8 (History, WWI): Students write for 4 minutes: "What do you think caused World War I? What do you already know?" Teacher uses responses to identify gaps, surface partial truths, and target the instruction that follows',
+          '9–12 (Chemistry, chemical reactions): Students predict the products of a reaction before any teaching — making the gap between intuition and understanding viscerally clear, and giving the instruction that follows a job to do'
+        ]
+      }
+    ],
+    throughLine: 'Prior Knowledge Activating is the cognitive equivalent of clearing a path before laying new ground. It does not guarantee learning — but instruction that skips it is working against the architecture of how memory actually forms. Every lesson begins with what students already carry, whether teachers attend to it or not. The question is whether that existing knowledge becomes an asset or an obstacle.'
+  },
+
+  2: {
+    title: 'Meaning-Making',
+    subtitle: 'How students move from knowing a fact to understanding why it matters',
+    overview: 'There is a profound difference between a student who can state that the Treaty of Versailles was signed in 1919 and a student who understands why its terms made another world war nearly inevitable. The first student has information. The second has meaning. Meaning-Making is the cognitive process of attributing significance — connecting facts to larger ideas, human consequences, and the web of why.',
+    foundational: 'Depth of processing theory, developed by cognitive psychologists Craik and Lockhart, established that the depth at which information is processed at encoding directly predicts how retrievable it will be later. Information processed for meaning — connected to context, emotion, consequence, and relationship — is encoded far more durably than information processed for surface features like spelling or sound. This is why students who are asked "why does this matter?" and given space to answer remember content far longer than students who are asked only "what is this?" The question shapes the depth of cognitive engagement, and depth shapes retention.',
+    sections: [
+      {
+        title: 'The engagement trap',
+        paragraphs: ['Schools have invested enormous energy in making content engaging — and engagement is not the problem. The problem is that engagement without meaning-making does not produce durable learning. A student can be fully engaged in an activity — absorbed, participatory, visibly on task — and be processing the content at a completely shallow level. The engagement is real; the learning is not.', 'Meaning-Making requires something beyond engagement: it requires students to do the cognitive work of answering "so what?" That work is harder and less immediately gratifying than engagement, which is why it must be explicitly built into instruction rather than assumed to happen when students are having a good time.'],
+        bullets: []
+      },
+      {
+        title: 'What it looks like in instruction',
+        paragraphs: ['The instructional move that most reliably generates Meaning-Making is simple: never let a fact stand alone. Every significant piece of content should be paired immediately with a question about its significance, consequence, or connection.'],
+        bullets: [
+          'The "so what?" protocol: after any direct instruction moment, students write or say one sentence beginning with "This matters because..."',
+          'Driving questions that frame entire units: not "What was the New Deal?" but "Should a government act to protect people from economic ruin, and at what cost?"',
+          'Connection prompts: "How does this connect to something in your own life, your community, or the world right now?"',
+          'Significance ranking: students rank 5 ideas from a lesson by importance and must justify their top choice',
+          'The "imagine if this weren\'t true" move: asking students what would be different if a key fact or principle were reversed — forcing them to reason about significance rather than just state it'
+        ]
+      },
+      {
+        title: 'The difference between personal relevance and intellectual significance',
+        paragraphs: ['Meaning-Making does not require personal relevance — and conflating the two is a common instructional mistake. A student does not need to personally relate to the causes of World War I to find them intellectually significant. Meaning-Making is about connecting ideas to consequence, principle, and understanding — not necessarily to personal experience.', 'This matters because the demand for personal relevance can inadvertently exclude students whose lived experience is distant from the content. Intellectual significance is available to everyone. "Why did this happen and what followed from it?" is a question any student can engage with. "How does this connect to your life?" is a question that privileges some students over others.'],
+        bullets: []
+      },
+      {
+        title: 'What it sounds like across grade levels',
+        paragraphs: [],
+        bullets: [
+          'K–2 (ELA, story): After reading, teacher asks: "Why do you think the author wrote this story? What did they want us to think about?" — moving from what happened to why it was told',
+          '3–5 (Social studies, community): "We just learned about how local government works. Why does it matter that regular people can run for city council? What would change if they couldn\'t?"',
+          '6–8 (Science, ecosystems): "We\'ve been studying food webs. Pick one organism we discussed. Write a paragraph explaining what would be lost — not just what would die — if it disappeared."',
+          '9–12 (Literature, Gatsby): "Fitzgerald published this in 1925. What was he trying to say about America at that moment — and does his argument still hold?"'
+        ]
+      }
+    ],
+    throughLine: 'Meaning-Making is the cognitive act that separates knowledge from wisdom, information from understanding. It cannot be done for students — it must be done by them. The teacher\'s job is to create the conditions in which doing it feels worth the effort: questions that genuinely require it, tasks that reward it, and an assessment system that measures it.'
+  },
+
+  3: {
+    title: 'Purposeful Attending',
+    subtitle: 'How students direct their limited cognitive resources toward what matters most',
+    overview: 'Every student arrives in every lesson with a finite amount of cognitive capacity. That capacity — what cognitive scientists call working memory — can hold and process only a small amount of information at any one time. Purposeful Attending is the practiced discipline of directing that limited resource toward the ideas that matter most, rather than dispersing it across everything that is present in the learning environment.',
+    foundational: 'Working memory is the bottleneck of all learning. Unlike long-term memory, which can store vast amounts of information, working memory operates like a small workbench — useful only for what fits on it right now. Cognitive load theory, developed by John Sweller, establishes that learning is most effective when the demands placed on working memory are carefully managed: extraneous load (caused by poor design, distraction, or irrelevant complexity) should be minimized so that germane load (the effortful processing of the content itself) can be maximized. A student whose cognitive resources are consumed by navigating a cluttered worksheet, following complex multi-step directions, or managing social anxiety has little left for the actual thinking the lesson requires.',
+    sections: [
+      {
+        title: 'The myth of multitasking in learning',
+        paragraphs: ['There is no such thing as multitasking in the context of learning. What appears to be multitasking is rapid attention-switching — and every switch costs cognitive resources. A student who is half-listening to instruction while half-monitoring a social situation is not doing both adequately; they are doing neither well.', 'This has direct implications for instructional design. Every element of a lesson that is not essential to the learning goal is not neutral — it is a drain on the cognitive resources students need for the goal itself. Purposeful Attending is partly a student disposition and partly a product of instructional design that respects the limits of working memory.'],
+        bullets: []
+      },
+      {
+        title: 'What it looks like in instruction',
+        paragraphs: ['Building Purposeful Attending requires two simultaneous moves: reducing extraneous demands on student attention, and explicitly directing students toward what deserves their focused cognitive energy.'],
+        bullets: [
+          'Signal clearly and explicitly: "The one idea I need you to hold onto from this section is..." — students should never have to guess what matters most',
+          'Strip instructional materials of decorative complexity — visuals, colors, and design elements that are not load-bearing for the learning',
+          'Worked examples before independent practice: seeing a fully solved problem first reduces the cognitive load of the novel task enough for students to attend to the underlying structure',
+          'Pause-and-process moments built into instruction: "Stop. Without looking at your notes, what is the most important idea from the last five minutes?"',
+          'Explicit metacognitive check-ins: "What are you actually thinking about right now? Is it the central question?"'
+        ]
+      },
+      {
+        title: 'Attention as a skill, not a character trait',
+        paragraphs: ['Purposeful Attending is often treated as a compliance issue — students who don\'t attend are seen as disrespectful or unmotivated. Cognitive science offers a different interpretation: attending is a skill that is developed with practice and scaffolding, and it is more difficult when the cognitive load of the environment is high, when the content lacks connection to prior knowledge, or when the stakes of the social environment consume attentional resources that would otherwise be available for learning.', 'This reframe matters enormously for equity. Students who struggle to attend in class are not necessarily less motivated or less capable — they may be working with a higher cognitive load from other sources, including but not limited to language processing demands, emotional stress, or navigating a social environment that feels unsafe.'],
+        bullets: []
+      },
+      {
+        title: 'What it sounds like across grade levels',
+        paragraphs: [],
+        bullets: [
+          'K–2 (Any subject): "I\'m going to show you something. Your one job is to notice the most important part. What do you think it is?" — teaches the concept of differential attention explicitly',
+          '3–5 (Reading): Students receive a complex text and are asked to circle only the sentence that carries the main idea — not every interesting sentence, just the one that holds the most weight',
+          '6–8 (Math): Before a multi-step problem, teacher says: "There is one piece of information in this problem that is actually a distraction. Find it and set it aside." — trains discrimination of relevant from irrelevant',
+          '9–12 (Any subject): Students write a one-sentence synthesis of a 20-minute lecture segment — impossible to do without having attended to what mattered and filtered out what didn\'t'
+        ]
+      }
+    ],
+    throughLine: 'Purposeful Attending is not about sitting still or looking at the teacher. It is about the internal, effortful discipline of keeping cognitive resources aimed at the right target — and that discipline is built through instruction that respects how limited and precious those resources are.'
+  },
+
+  4: {
+    title: 'Productive Struggling',
+    subtitle: 'How students learn to stay in difficulty long enough for understanding to form',
+    overview: 'The most counterintuitive finding in the science of learning is that difficulty is not an obstacle to learning — it is often the mechanism of it. Productive Struggling is the disposition to remain in the uncomfortable space between not knowing and knowing, to resist the impulse to seek immediate resolution, and to trust that the effort of working through confusion is itself what builds durable understanding.',
+    foundational: 'The concept of "desirable difficulties" — developed by Robert Bjork at UCLA — establishes that learning conditions that introduce certain kinds of difficulty actually enhance long-term retention and transfer, even when they slow down initial performance. The key word is desirable: not all difficulty is productive. Difficulty that exceeds a student\'s current capacity, that lacks sufficient support, or that is generated by poor instructional design is not desirable. But difficulty that requires students to actively process, connect, and reconstruct — rather than passively receive — produces learning that is deeper and more durable than easy acquisition.',
+    sections: [
+      {
+        title: 'The rescue reflex and why it undermines learning',
+        paragraphs: ['One of the most common and well-intentioned instructional habits is the rescue reflex: the teacher\'s impulse to step in the moment a student shows signs of confusion or struggle. The rescue feels helpful — and in the short term, it is. The student\'s confusion is resolved, progress resumes, the lesson moves forward.', 'But the rescue also short-circuits the very cognitive process that would have produced durable learning. The student who is rescued does not have to reconstruct, connect, or work through — they simply receive. The understanding that results is fragile, dependent on the scaffold, and unlikely to transfer. The struggle that felt like failure was actually the learning happening.'],
+        bullets: []
+      },
+      {
+        title: 'What it looks like in instruction',
+        paragraphs: ['Building Productive Struggling as a disposition requires teachers to do something genuinely difficult: trust the struggle. That means designing tasks at the edge of student capability, building in wait time, and resisting the rescue reflex long enough for the productive discomfort to do its work.'],
+        bullets: [
+          'Problem-before-instruction sequences: students attempt a problem using only prior knowledge before any teaching — the attempt primes the brain to receive instruction as answers to real questions',
+          'Explicit normalization: "This is supposed to feel hard. Hard means your brain is building something." — said regularly until it becomes part of classroom culture',
+          'Graduated hints rather than answers: when students are stuck, offer the minimum possible support — a question, a direction to look, a simpler version of the problem — not the solution',
+          'Struggle documentation: students write down what they tried and where they got stuck before asking for help, making the struggle itself a cognitive act rather than a dead end',
+          '"Try for two minutes before you ask" as a standing classroom norm, explicitly taught and consistently held'
+        ]
+      },
+      {
+        title: 'Productive vs. unproductive struggle',
+        paragraphs: ['Not all struggle is productive. Struggle that is too far beyond a student\'s current level produces frustration, not learning. Struggle without sufficient prior knowledge to work from produces guessing, not thinking. And struggle in an environment where being wrong feels publicly dangerous produces anxiety, not growth.', 'The teacher\'s diagnostic skill lies in distinguishing productive from unproductive struggle in real time — and intervening at the right threshold. The question is not "is this student struggling?" but "is this struggle moving toward understanding, or collapsing under its own weight?"'],
+        bullets: []
+      },
+      {
+        title: 'What it sounds like across grade levels',
+        paragraphs: [],
+        bullets: [
+          'K–2 (Math): Teacher gives students a new type of problem they\'ve never seen and says: "I\'m not going to help you yet. Try everything you know. I want to see what you figure out." Waits. Observes. Intervenes only when a student has genuinely exhausted their strategies',
+          '3–5 (Writing): Students are given a complex prompt and required to write a first draft with no guidance — "your first draft is supposed to be messy. The job of a first draft is just to get thinking on the page." Struggle is reframed as the correct state for a first attempt',
+          '6–8 (Science): Lab design task — students must design an experiment to test a hypothesis before being taught the standard procedure. Their flawed designs become the teaching material',
+          '9–12 (Any): Open-ended research question with no prescribed answer — students must develop their own argument using primary sources, working through ambiguity and contradiction without a teacher-provided resolution'
+        ]
+      }
+    ],
+    throughLine: 'If learning comes easy, it will go easy. The discomfort of genuine struggle is not a sign that something has gone wrong — it is often the sign that something important is being built. The teacher\'s job is not to eliminate that discomfort but to make it feel purposeful, supported, and survivable.'
+  },
+
+  5: {
+    title: 'Questioning Deeply',
+    subtitle: 'How students learn to press past surface answers into the mechanisms and reasons beneath',
+    overview: 'There is a hierarchy of questions in every classroom, and most instruction operates near the bottom of it. Surface questions — who, what, when, where — require recall. Deep questions — why, how, what if, what would change if — require reasoning. Questioning Deeply is the disposition to not accept surface answers as sufficient, to press toward mechanism and rationale, and to treat any "what" as an invitation to ask "why."',
+    foundational: 'Research consistently shows that the type of question asked during instruction shapes the depth of cognitive processing students engage in — and depth of processing is the primary predictor of retention and transfer. Questions that require students to explain, connect, justify, and reason produce far more durable learning than questions that require only recognition or recall. The implication is significant: not just the content of instruction but the questioning structure surrounding it determines whether learning happens at a surface or deep level.',
+    sections: [
+      {
+        title: 'The difference between questions that probe and questions that test',
+        paragraphs: ['Most classroom questions are essentially tests: they have a known right answer that the teacher is checking whether students have stored. These questions serve a purpose — but they do not develop Questioning Deeply as a disposition, because they train students to retrieve rather than to think.', 'Questions that probe are genuinely open in their direction, even when they have a defensible answer. "Why did the Roman Empire fall?" is probative — there is no single correct answer, and the quality of the reasoning matters more than the conclusion reached. "In what year did the Roman Empire fall?" is a test. Both have their place, but classrooms that rely primarily on the second type produce students who can recall but not reason.'],
+        bullets: []
+      },
+      {
+        title: 'What it looks like in instruction',
+        paragraphs: ['Developing Questioning Deeply requires two things: a consistent modeling of what deep questions look and sound like, and a structural expectation that students will generate their own rather than only respond to the teacher\'s.'],
+        bullets: [
+          'Question taxonomy visible in the room: a permanent display showing the difference between recall questions and reasoning questions — with examples from the current unit',
+          'Student-generated question journals: at the end of every lesson, students write the most important question the lesson raised for them — not what they learned, but what they now want to know',
+          'Socratic seminars where the teacher does not ask questions — students must sustain the intellectual conversation through their own questioning',
+          'Question sorting tasks: students categorize a set of questions by depth and explain their reasoning',
+          '"How do you know?" as the most frequently asked teacher question — applied to correct answers as much as incorrect ones, so that justification becomes expected regardless of outcome'
+        ]
+      },
+      {
+        title: 'Questions as intellectual humility',
+        paragraphs: ['One underappreciated function of deep questioning is that it models intellectual humility. A student who asks "why does this work that way?" is implicitly acknowledging that they don\'t yet fully understand — and that the not-understanding is worth pursuing rather than concealing. In classrooms where performance is valued over learning, students suppress genuine questions to avoid appearing ignorant. In classrooms where Questioning Deeply is cultivated, the question becomes evidence of engaged thinking rather than a confession of inadequacy.'],
+        bullets: []
+      },
+      {
+        title: 'What it sounds like across grade levels',
+        paragraphs: [],
+        bullets: [
+          'K–2 (Science, weather): After observing that it rained, teacher models: "I wonder why it rained today and not yesterday. What was different? Let\'s make a list of questions about rain." Students generate questions without needing to answer them — building the questioning habit before the answering habit',
+          '3–5 (Math, multiplication): After learning the algorithm, teacher asks: "Does anyone want to know WHY this procedure works? Who has a question about where it comes from?" — legitimizing the deeper question',
+          '6–8 (ELA, argumentative writing): Students must write three questions that challenge their own argument before they submit — institutionalizing the practice of questioning one\'s own conclusions',
+          '9–12 (Any discipline): Seminars open with student-generated questions only — teacher facilitates but does not initiate. The quality of student questions is assessed as a primary learning outcome'
+        ]
+      }
+    ],
+    throughLine: 'The deepest thinkers in any field are distinguished not by the answers they hold but by the quality of the questions they ask. Questioning Deeply is how students develop the intellectual engine that drives genuine inquiry — and it is a disposition that must be explicitly cultivated, modeled, and rewarded, because the default pull of most classrooms is toward answers, not questions.'
+  },
+
+  6: {
+    title: 'Elaborating',
+    subtitle: 'How students build richer, more retrievable knowledge by extending and connecting what they learn',
+    overview: 'Elaboration is one of the most powerful and most underused learning strategies available to students. At its core, it is simple: instead of accepting an idea as a finished fact, the student adds to it — explaining why it is true, connecting it to something else, illustrating it with an example, or asking what follows from it. That act of extension is not decoration; it is the cognitive process that transforms isolated information into integrated understanding.',
+    foundational: 'Elaborative interrogation — the practice of asking "why is this true?" and generating explanations — has been consistently identified in cognitive psychology research as one of the most effective encoding strategies available to learners. When students elaborate, they are forced to connect new information to existing knowledge, which both deepens the encoding of the new information and strengthens the retrieval pathways to it. The more connections a piece of information has to other things in long-term memory, the more routes there are to retrieve it — and the more robust the understanding becomes.',
+    sections: [
+      {
+        title: 'The difference between restating and elaborating',
+        paragraphs: ['Many students believe they are elaborating when they are restating. Restating is reproducing the original idea in slightly different words. Elaborating is adding something that was not in the original — a connection, a reason, a consequence, an example from outside the text, a question it raises. The distinction is not subtle: restatement requires recognition; elaboration requires generation.', 'Assessment tasks that ask students to "explain in your own words" often elicit restatement, not elaboration. The prompt that elicits elaboration is more specific: "Explain why this is true," "Connect this to something we learned last month," "Give me an example that doesn\'t come from the reading," or "What follows from this if it\'s correct?"'],
+        bullets: []
+      },
+      {
+        title: 'What it looks like in instruction',
+        paragraphs: ['Elaboration must be explicitly taught and practiced because it is cognitively demanding and runs against the grain of efficiency-oriented schoolwork. Students who have learned that the correct answer is sufficient will resist elaborating until they understand why it produces better learning.'],
+        bullets: [
+          'Elaborative interrogation as a standing protocol: after any key concept, "Why is this true? How do we know? What evidence supports it?"',
+          '"Say more" as the most common teacher response to any student answer — normalizing the expectation that the first answer is the beginning, not the end',
+          'The 1-3-1 structure: one sentence summary → three elaborating connections → one question it raises',
+          'Analogical elaboration: "Explain this concept using something completely different from school" — forces students to find their own connection point',
+          'Partner elaboration: Student A explains; Student B says only "and what else?" until Student A has exhausted their elaboration — then they switch'
+        ]
+      },
+      {
+        title: 'Elaboration and equity',
+        paragraphs: ['Research on classroom discourse consistently finds that elaboration opportunities are distributed unequally. Students who are called on more, who speak more fluently, and who volunteer more receive more invitations to elaborate — and therefore develop this cognitive skill more rapidly. Students who speak less, who are called on less, or who process more slowly are left with thinner cognitive practice in this critical area.', 'Building Elaborating as a universal classroom disposition requires structural guarantees: written elaboration tasks that every student completes independently, pair structures that give every student elaboration practice, and cold-calling protocols that provide thinking time before the public elaboration is required.'],
+        bullets: []
+      },
+      {
+        title: 'What it sounds like across grade levels',
+        paragraphs: [],
+        bullets: [
+          'K–2 (Science): "We learned that plants need sunlight. Tell me more about why. What do you think the plant does with the sunlight?" — probing for elaboration before students have sophisticated vocabulary',
+          '3–5 (Social studies): Students complete a "because... therefore... which means..." chain for a key concept — each link in the chain is one elaboration step',
+          '6–8 (ELA): Written responses must include at least two "because" or "which shows that" phrases — the requirement is mechanical at first but builds the habit of connecting claim to reasoning',
+          '9–12 (Any): Extended analytical writing assessed explicitly on elaboration depth — rubric distinguishes restatement, explanation, analysis, and synthesis as progressively deeper forms of elaboration'
+        ]
+      }
+    ],
+    throughLine: 'Elaboration is the difference between a student who knows a fact and a student who owns an idea. It cannot happen passively or incidentally — it must be demanded, modeled, practiced, and assessed. The student who can elaborate is building the kind of connected, flexible knowledge that will still be accessible in six months, in a different class, and in a context the original lesson never anticipated.'
+  },
+
+  7: {
+    title: 'Connecting Across Concepts',
+    subtitle: 'How students build the schema that makes knowledge flexible and transferable',
+    overview: 'Isolated facts are fragile. They can be memorized for a test and forgotten within days, because they have nothing to hold them in place. Ideas that are connected — that exist within a web of relationships to other ideas — are robust. They can be retrieved from multiple directions, applied in unfamiliar contexts, and used as the foundation for new learning. Connecting Across Concepts is the habit of building that web rather than collecting isolated nodes.',
+    foundational: 'Schema theory, developed through decades of cognitive psychology research, establishes that long-term memory is organized not as a filing cabinet of individual facts but as an interconnected network of knowledge structures called schemas. Expert learners have rich, well-connected schemas that allow them to recognize patterns quickly, apply knowledge flexibly, and learn new information in a domain rapidly because they have so many existing connection points. Novice learners have sparse schemas — which is why the same lesson that produces deep learning in one student produces almost none in another. The difference is not intelligence; it is the density of the existing network the new information can attach to.',
+    sections: [
+      {
+        title: 'Why teaching to the test weakens schema',
+        paragraphs: ['One of the unintended consequences of narrowly test-oriented instruction is that it actively works against schema-building. When content is taught in isolated units, assessed and moved past, students have no reason or opportunity to draw connections across topics. The curriculum becomes a sequence of separate episodes rather than a developing understanding.', 'Schema-building requires deliberate cross-referencing — the teacher must actively create moments where students are asked to look back, look sideways, and look across disciplines. These moments feel slow and effortful in the short term. They pay dividends in retention, transfer, and genuine understanding that isolated unit instruction cannot produce.'],
+        bullets: []
+      },
+      {
+        title: 'What it looks like in instruction',
+        paragraphs: ['Connecting Across Concepts is built through consistent structural habits that make connection-making a regular expectation rather than an occasional enrichment activity.'],
+        bullets: [
+          'The "connected ideas" wall or running document: students add connections between current and past content throughout a unit — visible, cumulative, and revisited',
+          'Interleaved practice: deliberately mixing problem types or content from different units in practice sets, so retrieval requires discriminating between concepts rather than recognizing the current topic',
+          '"Where have we seen this before?" as a standing instructional prompt at the start of every new concept',
+          'Unit synthesis tasks: "Draw a concept map that shows how the five main ideas of this unit connect to three ideas from last unit"',
+          'Cross-curricular connection prompts: "This idea appears in history AND in biology AND in economics — write one paragraph explaining why"'
+        ]
+      },
+      {
+        title: 'The role of interleaving',
+        paragraphs: ['One of the most powerful and most counterintuitive strategies for building connection is interleaving — practicing different types of problems or content mixed together rather than in separate blocked sets. Blocked practice (all of one type, then all of another) feels easier and produces faster initial learning. Interleaved practice feels harder and produces slower initial performance — but dramatically better long-term retention and transfer.', 'The reason is schema: blocked practice allows students to solve problems by pattern-matching to the current topic. Interleaved practice requires students to first identify what type of problem they are facing — which requires understanding the connections and distinctions between concept types at a deeper level.'],
+        bullets: []
+      },
+      {
+        title: 'What it sounds like across grade levels',
+        paragraphs: [],
+        bullets: [
+          'K–2 (Math): "We learned about adding yesterday and sharing equally last week. Are those the same thing or different? How do you know?" — building the early connection between addition and division',
+          '3–5 (ELA + Science): "The author of this book uses the same kind of evidence that scientists use. What is it? Where did you see it?" — deliberately surfacing structure across disciplines',
+          '6–8 (History + Economics): "We\'ve studied the Great Depression and we\'ve studied supply and demand. Draw me a diagram that shows how those two things connect." Students must build the bridge, not just recognize that one exists',
+          '9–12 (Any): Capstone synthesis tasks that require students to use knowledge from at least three different units or courses to address a single complex question — the task is designed to be impossible without connection-making'
+        ]
+      }
+    ],
+    throughLine: 'The goal of education is not a collection of facts but a developed understanding — and understanding is, at its core, a network of connections. Every time a student draws a genuine link between two ideas, they are not just demonstrating knowledge; they are strengthening the cognitive architecture that makes all future learning in that domain faster, deeper, and more durable.'
+  },
+
+  8: {
+    title: 'Analogical Reasoning',
+    subtitle: 'How students use the familiar to understand the unfamiliar',
+    overview: 'Every expert in every field thinks in analogies. The physicist sees a new quantum phenomenon and immediately asks: what is this like? The historian encounters an unfamiliar political crisis and reaches for structural parallels in the past. The mathematician confronts a new proof and searches for a technique that worked in a similar situation. Analogical Reasoning is the cognitive process of mapping the structure of something understood onto something not yet understood — and it is one of the most powerful tools for accelerating genuine comprehension.',
+    foundational: 'Analogical reasoning is not a supplement to learning; it is a core mechanism of it. Cognitive science research on expertise consistently shows that the ability to draw structural analogies — to see that two situations share an underlying pattern even when their surface features differ — is a hallmark of expert thinking across domains. For students, analogical reasoning serves a specific function: it allows new and unfamiliar concepts to be initially understood through the framework of something already known, reducing the cognitive load of first encounter and creating a scaffold for deeper learning to follow.',
+    sections: [
+      {
+        title: 'Surface analogies vs. structural analogies',
+        paragraphs: ['Not all analogies are equally powerful. Surface analogies compare things that look alike: "the eye is like a camera because they both have lenses." Structural analogies compare things that work alike — that share a deep organizational pattern even when they look completely different: "the spread of a disease through a population is like the spread of information through a social network, because in both cases the rate of spread depends on how many people each affected individual contacts."', 'Structural analogies are the powerful ones. They reveal the underlying mechanism rather than just the surface appearance, and they transfer to new situations in ways that surface analogies do not. Building Analogical Reasoning as a disposition means teaching students to look past surface features toward structural relationships.'],
+        bullets: []
+      },
+      {
+        title: 'What it looks like in instruction',
+        paragraphs: ['Analogical Reasoning is best developed through explicit modeling — the teacher making their own analogical thinking visible — combined with structured practice that requires students to generate and evaluate their own analogies.'],
+        bullets: [
+          'Teacher think-aloud analogies: "When I first encountered this concept, I thought about it like... because the structure is similar in this way..."',
+          'Student analogy generation: after introducing a new concept, students write: "This is like ___ because both ___" — and must explain the structural similarity, not just assert it',
+          'Analogy critique tasks: provide a student-generated or teacher-generated analogy and ask where it breaks down — "In what ways is this comparison inaccurate or misleading?"',
+          '"Explain it to a 7-year-old" challenges: forces students to find an analogy accessible enough to cross the knowledge gap',
+          'Cross-domain analogy hunts: "Find a situation in history/biology/your own life that has the same structure as this economic concept"'
+        ]
+      },
+      {
+        title: 'When analogies mislead',
+        paragraphs: ['Analogies are powerful precisely because they bypass the need to understand something from scratch — but that power comes with a risk. An analogy that captures some features of a concept while misrepresenting others can actively obstruct deeper learning. Students who understand electricity through the water-flow analogy, for instance, often develop misconceptions about voltage and resistance that the analogy cannot adequately represent.', 'This is why Analogical Reasoning as a disposition must include the skill of critiquing and abandoning analogies — knowing when the map is no longer serving the territory, and being willing to build a new one.'],
+        bullets: []
+      },
+      {
+        title: 'What it sounds like across grade levels',
+        paragraphs: [],
+        bullets: [
+          'K–2 (Math, place value): "Ones are like single blocks. Tens are like sticks of ten blocks glued together. Hundreds are like flat squares of a hundred. Why do you think we group them that way? What\'s the same about all the groupings?" — structural analogy made physical',
+          '3–5 (Science, cells): "A cell is like a city. The nucleus is like city hall. What do you think the cell membrane is like? Why?" Students generate the analogy rather than receive it',
+          '6–8 (History, government systems): "We\'ve studied three different government systems. Draw a diagram that shows the structural similarities — not the names, but how power moves and who checks it"',
+          '9–12 (Mathematics): "This proof technique is analogous to one we used in a completely different branch of math six weeks ago. Identify the parallel and explain why the same logic works in both contexts"'
+        ]
+      }
+    ],
+    throughLine: 'Analogical Reasoning is not a study skill or a mnemonic device — it is the cognitive process through which human beings have always made the unfamiliar comprehensible. Teaching students to reason analogically is teaching them to think like experts: to see structure beneath surface, to transfer understanding across contexts, and to build new knowledge on the foundation of what is already known.'
+  },
+
+  9: {
+    title: 'Principled Explaining',
+    subtitle: 'How students move from following procedures to understanding the logic that generates them',
+    overview: 'There is a deep and consequential difference between a student who can perform a procedure correctly and a student who can explain why the procedure works. The first student has a tool. The second student has understanding. Principled Explaining is the disposition to not be satisfied with what — to press always toward the how and why that generates the what — and to be able to articulate that logic clearly enough that someone else could reconstruct the procedure from the principle.',
+    foundational: 'Research on expertise consistently distinguishes between two types of knowledge: procedural knowledge (knowing how to do something) and conceptual knowledge (knowing why it works and what principle governs it). Expert learners have both, deeply integrated. Novice learners often have procedural knowledge without the conceptual understanding to back it up — which means they can perform in familiar contexts but fail when the surface features of a problem change. The student who knows the algorithm for dividing fractions but cannot explain why you invert and multiply will be unable to adapt when the problem is presented differently or embedded in a real-world context.',
+    sections: [
+      {
+        title: 'The procedure trap',
+        paragraphs: ['Schools are extraordinarily efficient at teaching procedures. Algorithms, formulas, five-paragraph essay structures, lab protocols — these are learnable, testable, and produce measurable short-term performance gains. The trap is that procedural fluency can look exactly like understanding on a standard assessment, masking the conceptual void beneath.', 'Students who have procedures without principles are fragile learners. They can reproduce what they were taught in the context they were taught it. They cannot transfer, adapt, or self-correct when something changes. Principled Explaining is the disposition that builds robustness rather than mere fluency.'],
+        bullets: []
+      },
+      {
+        title: 'What it looks like in instruction',
+        paragraphs: ['Building Principled Explaining requires a consistent instructional commitment to following every procedure with a genuine question about its logic — and holding students accountable for the explanation, not just the execution.'],
+        bullets: [
+          '"Why does this work?" as a non-negotiable follow-up to any correct procedural demonstration',
+          'Reverse engineering tasks: give students the answer and ask them to reconstruct the principle that produced it',
+          '"Teach it back" protocols: students explain a concept to a partner as if the partner has never seen it — requires principled understanding, not just procedural recall',
+          'Proof and justification requirements in mathematics: not "show your work" but "explain why each step is valid"',
+          'Non-routine problems: tasks where the standard procedure does not directly apply, requiring students to reason from principle rather than follow a familiar path'
+        ]
+      },
+      {
+        title: 'Principled explaining across disciplines',
+        paragraphs: ['The demand for principled explanation is not limited to mathematics. Every discipline has its underlying principles — the logical, empirical, or theoretical structures that generate the surface-level claims and procedures students are taught.', 'In history, the principle might be: "Primary sources reflect the perspective of their creator." In ELA: "A claim without evidence is an assertion, not an argument." In science: "A controlled experiment changes one variable and holds all others constant." Students who can explain these principles — not just apply them — understand the discipline rather than just performing within it.'],
+        bullets: []
+      },
+      {
+        title: 'What it sounds like across grade levels',
+        paragraphs: [],
+        bullets: [
+          'K–2 (Math): After demonstrating that 3+4=7 using blocks, teacher asks: "Could you convince someone who has never seen addition before that this is true? What would you show them?"',
+          '3–5 (Science): After completing an experiment, students must answer: "Why did we need a control group? What would be wrong with our conclusion if we hadn\'t included one?"',
+          '6–8 (ELA): Students underline the principle behind a grammar rule and explain why a sentence that violates it is harder to understand — not just wrong by convention',
+          '9–12 (Mathematics): Before applying a theorem, students must state the conditions under which it holds — demonstrating that they understand the principle, not just the procedure'
+        ]
+      }
+    ],
+    throughLine: 'Principled Explaining is the mark of genuine comprehension. It cannot be faked with a correct answer, and it cannot be acquired through repetition alone. It requires students to go below the surface of what they can do and ask why — and it produces the kind of understanding that survives changed contexts, novel problems, and the passage of time.'
+  },
+
+  10: {
+    title: 'Contrasting Cases',
+    subtitle: 'How students develop precision by understanding what an idea is not',
+    overview: 'Understanding is sharpened at the boundaries. Students who learn what something is without learning what it is not — and crucially, why the distinction matters — have a blurry concept that will fail them at exactly the moments precision is required. Contrasting Cases is the discipline of deliberately placing related, easily confused, or superficially similar ideas alongside each other to reveal their critical differences — and to make those differences do cognitive work.',
+    foundational: 'Research on learning through contrasting cases — developed extensively by Manu Kapur and others working in the tradition of productive failure — shows that presenting students with cases that vary in one critical dimension, and asking them to identify and explain what changed, produces deeper conceptual learning than presenting the concept in isolation. The contrast focuses attention on the feature that matters most. Without the contrast, students often miss the key attribute entirely, learning a vague impression of the concept rather than its defining structure.',
+    sections: [
+      {
+        title: 'Why definitions alone are not enough',
+        paragraphs: ['Students can memorize a definition perfectly and still fail to understand the concept it defines. Definitions tell students what a thing is; contrasting cases show them where the boundaries are. "A mammal is a warm-blooded vertebrate that gives birth to live young and nurses its offspring with milk" is a correct definition — but students who have only that definition frequently misclassify edge cases, include things that don\'t qualify, and exclude things that do.', 'The concept becomes precise only when students work with cases that test the boundaries: Is a platypus a mammal? (Yes, despite laying eggs.) Is a whale? (Yes, despite living in water.) Each contrast sharpens the concept from the outside in.'],
+        bullets: []
+      },
+      {
+        title: 'What it looks like in instruction',
+        paragraphs: ['Contrasting Cases work best when the contrast is chosen deliberately to target the most common point of confusion — the place where students most often get the concept wrong.'],
+        bullets: [
+          'Side-by-side worked examples that differ in exactly one key feature: "These two problems look the same — why do they require different approaches?"',
+          'Non-example instruction: teaching what a concept is not, alongside what it is, with equal rigor',
+          'The "same or different, and why?" protocol applied to any pair of related concepts',
+          'Error analysis using near-miss examples: cases that have almost all the features of the target concept but not quite — exactly where misconceptions live',
+          'Student-generated contrast: "Give me an example and a non-example of this concept, and explain what makes the difference"'
+        ]
+      },
+      {
+        title: 'The most common confusion pairs to target',
+        paragraphs: ['Every discipline has its signature confusion pairs — concepts that students routinely conflate because they share surface features while differing in critical ones. Identifying these pairs and designing deliberate contrast instruction around them is one of the highest-leverage uses of instructional time.', 'In mathematics: mean vs. median, correlation vs. causation, area vs. perimeter. In ELA: theme vs. topic, inference vs. evidence, argument vs. opinion. In science: hypothesis vs. theory, speed vs. velocity, weathering vs. erosion. In history: primary vs. secondary source, cause vs. correlation, chronology vs. causation. Each of these pairs represents a conceptual distinction that students frequently miss — and that contrasting cases instruction can sharpen.'],
+        bullets: []
+      },
+      {
+        title: 'What it sounds like across grade levels',
+        paragraphs: [],
+        bullets: [
+          'K–2 (Math, shapes): Teacher shows a square and a rectangle side by side: "These both have four sides and four right angles. So how are they different? Could a square ever be a rectangle? Could a rectangle ever be a square?"',
+          '3–5 (ELA): Two student-written sentences — one is an inference, one is a direct quote from the text. "Which is which? How do you know? Why does it matter which one you use as evidence?"',
+          '6–8 (Science): Two graphs — one showing correlation, one showing experimental causation. "Both show a relationship between two variables. Why can we draw a causal conclusion from one but not the other?"',
+          '9–12 (Any): Paired texts, arguments, or data sets — one that exemplifies a concept and one that nearly does but fails at a critical point. Students identify the failure point and articulate why it matters'
+        ]
+      }
+    ],
+    throughLine: 'Concepts are defined by their boundaries as much as by their centers. Students who have only the center — who know what something typically is — will fail at the edges, where precision is most required. Contrasting Cases is the instructional move that builds that precision, and it is most powerful when it targets exactly the places students are most likely to go wrong.'
+  },
+
+  11: {
+    title: 'Effortful Recalling',
+    subtitle: 'How the act of retrieval itself strengthens memory and makes learning durable',
+    overview: 'The most powerful study strategy most students never use is also the simplest: instead of reading over notes, close the book and try to remember. The act of retrieving information from memory — especially when it requires genuine effort — does something that passive review cannot: it strengthens the memory trace itself, making the information more accessible the next time it is needed. Effortful Recalling is not a test of what students know; it is a method for making what they know more durable.',
+    foundational: 'The testing effect — also called the retrieval practice effect — is one of the most replicated and robust findings in cognitive psychology. Studies consistently show that retrieving information from memory produces better long-term retention than re-reading, re-watching, highlighting, or any form of passive review, even when the total study time is equal. The critical variable is the effort of retrieval: the harder a student has to work to pull information from memory, the stronger the memory trace becomes. This is why the most effective retrieval practice is not easy recognition (seeing the answer and confirming it) but effortful reconstruction (generating the answer from scratch).',
+    sections: [
+      {
+        title: 'Why re-reading fails',
+        paragraphs: ['Re-reading is the most common study strategy among students, and one of the least effective for long-term retention. The reason it feels effective is that it produces fluency — familiarity with the material that registers as understanding. But familiarity is not the same as the ability to retrieve. A student who has read a chapter three times will recognize key terms when they see them; they may not be able to generate them, explain them, or apply them without the text in front of them.', 'Re-reading strengthens the ability to recognize; retrieval practice strengthens the ability to generate. Standardized tests, essays, and real-world applications almost always require generation, not recognition. This is why the study strategy that feels most efficient produces the least durable preparation.'],
+        bullets: []
+      },
+      {
+        title: 'What it looks like in instruction',
+        paragraphs: ['Effortful Recalling needs to be built into the regular rhythm of instruction — not as a high-stakes testing event but as a frequent, low-stakes practice that students eventually internalize as a natural part of how they engage with content.'],
+        bullets: [
+          'Opening retrieval: every class begins with 3–5 minutes of recalling content from the previous lesson, the previous week, and a previous unit — without notes',
+          'Brain dumps: "You have 4 minutes. Write down everything you can remember about ___. Don\'t look at anything." Followed by checking and filling gaps',
+          'Spaced retrieval calendars: revisiting content at increasing intervals (1 day, 1 week, 3 weeks) — matching the retrieval schedule to the forgetting curve',
+          'Two-column notes as retrieval tools: questions on the left, answers covered on the right — students practice generating answers before checking',
+          'Exit retrieval: the last 3 minutes of class, students write the three most important things from today\'s lesson without looking at their notes'
+        ]
+      },
+      {
+        title: 'The desirable difficulty of retrieval',
+        paragraphs: ['Students often resist retrieval practice because it feels harder and less satisfying than re-reading. They are right that it is harder — and that difficulty is exactly the point. The struggle of effortful recall is not a sign that the practice is failing; it is the mechanism through which the practice works.', 'This is a critical piece of metacognitive knowledge to share with students explicitly. Research by researchers including Henry Roediger at Washington University has demonstrated that students who understand why retrieval practice works are significantly more likely to use it voluntarily — and to recognize that the discomfort of struggling to remember is not failure, but learning in progress.'],
+        bullets: []
+      },
+      {
+        title: 'What it sounds like across grade levels',
+        paragraphs: [],
+        bullets: [
+          'K–2 (Any subject): "We learned something important yesterday. Close your eyes. Can you see it in your mind? What was it? Tell your partner before you look at anything."',
+          '3–5 (Science): Weekly "What do I remember?" journals — students write everything they recall about the week\'s content on Friday morning before any review',
+          '6–8 (History): Retrieval maps — students draw from memory a concept map of a unit, then compare to their notes and add what they missed in a different color',
+          '9–12 (Any): Practice testing with self-generated questions — students write their own test questions throughout a unit and use them to retrieve before formal assessment'
+        ]
+      }
+    ],
+    throughLine: 'Every time a student successfully retrieves something from memory — especially something they had to work to retrieve — they have not just demonstrated what they know. They have made it more likely they will know it tomorrow, next week, and next year. Retrieval is not assessment; it is the practice of learning itself.'
+  },
+
+  12: {
+    title: 'Predicting',
+    subtitle: 'How anticipating what will happen makes students more prepared to learn from what does',
+    overview: 'Prediction is the brain\'s natural learning posture. Every time we encounter a new situation, the brain generates an expectation — and then compares what actually happens to what it anticipated. When the prediction is right, existing understanding is confirmed. When it is wrong, something more powerful happens: the mismatch between expectation and reality creates exactly the cognitive conditions most favorable to new learning. Predicting is not a guessing activity — it is a precision tool for activating prior knowledge and generating the cognitive readiness to learn from what follows.',
+    foundational: 'Research on predictive processing and the role of expectation in learning establishes that the brain is fundamentally a prediction machine: it is constantly generating anticipatory models of what will happen next, and updating those models in response to incoming information. When a prediction is disconfirmed — when something happens that the brain did not anticipate — the resulting surprise produces a particularly strong memory trace. This is sometimes called the hypercorrection effect: errors made with high confidence, when corrected, produce better long-term retention than correct answers made with low confidence.',
+    sections: [
+      {
+        title: 'The difference between predicting and guessing',
+        paragraphs: ['Students often treat prediction tasks as guessing — they offer an answer without engaging the cognitive machinery that makes prediction valuable. The distinction is in the reasoning: a prediction is a claim generated from existing knowledge, with an explanation of why that knowledge leads to that expectation. A guess is a response generated without reasoning.', 'The instructional requirement that separates prediction from guessing is simple: always require the "because." "I predict X because I know Y and I think Z follows from it" is a prediction. "I predict X" is a guess. The because is where the learning lives.'],
+        bullets: []
+      },
+      {
+        title: 'What it looks like in instruction',
+        paragraphs: ['Prediction is most powerful when it is taken seriously — when students are held accountable for returning to their predictions, evaluating their accuracy, and explaining what the gap between prediction and reality reveals about their understanding.'],
+        bullets: [
+          'Pre-reading or pre-lesson prediction with justification: "Before we begin, predict what will happen and explain why using what you already know"',
+          'Prediction journals with required return visits: predictions recorded at the start of a unit are reopened at the end — "Were you right? What did you miss? Why?"',
+          '"What happens next?" pause points during instruction — stopping mid-lesson to require a prediction before the answer is revealed',
+          'Data prediction in science and math: before running a calculation or an experiment, students predict the result and record their reasoning',
+          'Prediction as pre-assessment: what students predict reveals exactly what they know and don\'t know before instruction begins'
+        ]
+      },
+      {
+        title: 'Learning more from wrong predictions than right ones',
+        paragraphs: ['One of the most counterintuitive aspects of prediction as a learning tool is that wrong predictions, when corrected, often produce stronger learning than right ones. This is because a wrong prediction creates a salient moment of disconfirmation — the brain registers: "I expected X and got Y" — and that mismatch is far more memorable than confirmation of an existing expectation.', 'This means that prediction tasks should not be framed as tests of knowledge — they should be framed as tools for surfacing what students think so that instruction can engage directly with it. A classroom full of wrong predictions is a classroom full of learning opportunities.'],
+        bullets: []
+      },
+      {
+        title: 'What it sounds like across grade levels',
+        paragraphs: [],
+        bullets: [
+          'K–2 (ELA): Before reading a picture book, students predict what will happen based on the cover: "I think ___ will happen because the picture shows ___" — written or drawn in a prediction journal',
+          '3–5 (Math): Before solving a multi-step problem, students predict whether the answer will be greater than or less than 100 and explain why — committing to a range before doing the work',
+          '6–8 (Science): Before an experiment, students write a formal prediction: "I predict ___ because based on what we know about ___, I expect ___" — and return to this prediction when writing up results',
+          '9–12 (History): Before studying the outcome of a historical event, students read only the lead-up and predict what happened, with a structured argument — then analyze the gap between their prediction and reality'
+        ]
+      }
+    ],
+    throughLine: 'Predicting is how the brain prepares itself to learn. It generates the expectations that instruction can confirm, complicate, or overturn — and in doing so, it creates the cognitive conditions under which new information lands as meaningful rather than arbitrary. The student who predicts before learning is a fundamentally different kind of learner than the student who simply receives.'
+  },
+
+  13: {
+    title: 'Hypothesis Testing',
+    subtitle: 'How students learn to treat their own understanding as a claim to be verified rather than a truth to be defended',
+    overview: 'The most important epistemic move a learner can make is to hold their current understanding tentatively — as a hypothesis to be tested rather than a conclusion to be defended. Hypothesis Testing is the disposition to treat one\'s beliefs about how something works as provisional claims that must be checked against evidence, and to be genuinely willing to revise them when the evidence requires it. This is not a science-class skill; it is a universal cognitive habit that separates genuine learning from the accumulation of comfortable certainties.',
+    foundational: 'Confirmation bias — the well-documented tendency to seek and weight information that confirms existing beliefs while discounting information that challenges them — is one of the most robust findings in cognitive psychology. It operates automatically and unconsciously, which means students are not naturally inclined to test their hypotheses fairly. Hypothesis Testing as a practiced disposition is specifically the cultivation of the counter-tendency: the habit of deliberately seeking disconfirming evidence, of asking "what would prove me wrong?" before asking "what proves me right?"',
+    sections: [
+      {
+        title: 'The Claim-Evidence-Reasoning framework across all disciplines',
+        paragraphs: ['CER — Claim, Evidence, Reasoning — is most commonly taught in science classes, but its underlying logic applies universally. Every discipline requires students to make claims, support them with evidence, and explain the reasoning that connects the two. When this structure is used explicitly across subjects, students develop a transferable habit of treating their beliefs as hypotheses rather than certainties.', 'The most important element of CER for Hypothesis Testing is the reasoning component — the explanation of why the evidence supports the claim. This is where students are forced to confront the logic of their own thinking, which is exactly where hypothesis testing does its cognitive work.'],
+        bullets: []
+      },
+      {
+        title: 'What it looks like in instruction',
+        paragraphs: ['Hypothesis Testing is developed through consistent instructional habits that make the testing of claims — including the teacher\'s claims — a normal part of how the classroom operates.'],
+        bullets: [
+          'Before any investigation or argument: "State your hypothesis and explain what evidence would confirm it — and what evidence would disconfirm it"',
+          'Steel-manning the opposition: students must identify the strongest possible argument against their own position before presenting it',
+          '"What would change your mind?" as a standing discussion question',
+          'Deliberate exposure to disconfirming evidence: presenting data or arguments that challenge the expected conclusion and requiring students to engage with it seriously',
+          'Distinguishing "I believe this" from "the evidence shows this" as a consistent language practice in all subjects'
+        ]
+      },
+      {
+        title: 'Hypothesis testing in non-science contexts',
+        paragraphs: ['Students who encounter hypothesis testing only in science labs often fail to transfer the disposition to contexts that look different. A literary interpretation is a hypothesis. A historical explanation is a hypothesis. A mathematical conjecture is a hypothesis. An argument about policy is a hypothesis.', 'Making this explicit — naming the hypothesis in contexts that don\'t usually use that language — builds the transfer that makes hypothesis testing a genuine disposition rather than a science-specific procedure.'],
+        bullets: []
+      },
+      {
+        title: 'What it sounds like across grade levels',
+        paragraphs: [],
+        bullets: [
+          'K–2 (Science): "What do you think will happen if we add more weight? Let\'s find out. Were you right? What does that tell us?" — the testing loop made explicit and immediate',
+          '3–5 (ELA): After forming an opinion about a character: "What evidence in the text would prove you wrong about this character? Does any of it exist?" — applying hypothesis testing to literary analysis',
+          '6–8 (Social studies): "You\'ve argued that the colonists were right to revolt. Find the three strongest arguments on the other side. Does any of them change your mind?"',
+          '9–12 (Any): Students write a one-page argument, then spend equal time writing the strongest possible rebuttal to their own argument — before deciding whether to revise or hold their original position'
+        ]
+      }
+    ],
+    throughLine: 'Hypothesis Testing is the disposition that separates a learner from a confirmer. The student who tests their understanding is always learning; the student who defends their understanding is merely performing. In a world where information is abundant and competing claims are everywhere, the ability to hold one\'s beliefs provisionally and test them honestly is among the most important cognitive capacities a school can develop.'
+  },
+
+  14: {
+    title: 'Applying',
+    subtitle: 'How students demonstrate that understanding is real by using knowledge in contexts it was never explicitly taught in',
+    overview: 'The ultimate test of understanding is not reproduction — it is application. A student who can reproduce a definition has information. A student who can use that information to navigate a situation they have never seen before has understanding. Applying is the disposition to treat knowledge as a tool rather than a trophy — to look at what one knows and ask not "can I state this?" but "where and how can I use this?"',
+    foundational: 'Transfer — the ability to apply knowledge learned in one context to a new and different context — is the central goal of education and one of the most difficult cognitive achievements to produce. Research by cognitive scientists including John Bransford distinguishes between near transfer (applying knowledge in a context very similar to where it was learned) and far transfer (applying it in a substantially different context). Far transfer is rare and difficult, but it is the measure of deep understanding. It is also highly teachable — but only through deliberate instruction that builds the cognitive flexibility transfer requires.',
+    sections: [
+      {
+        title: 'Why students who "know" something still cannot apply it',
+        paragraphs: ['One of the most frustrating experiences in teaching is a student who clearly knows the content in class but cannot use it on an assessment or in a real-world context. This is not a memory problem or an effort problem; it is a transfer problem. The student\'s knowledge is context-bound — tightly associated with the specific cues, examples, and format in which it was originally learned.', 'Context-bound knowledge is fragile. It works when the surface features match the original learning context and fails when they change. Building transferable knowledge requires deliberately varying the contexts in which students practice — so that the knowledge becomes associated with the underlying concept rather than the surface features of any particular example.'],
+        bullets: []
+      },
+      {
+        title: 'What it looks like in instruction',
+        paragraphs: ['Transfer is built through instructional design that progressively increases the distance between the learning context and the application context — and that explicitly supports students in making the connection between the two.'],
+        bullets: [
+          'Near-to-far transfer sequences: first apply the concept in a familiar context, then in a related but different context, then in a context that looks completely different but shares the same underlying structure',
+          'Varied practice: using many different examples and contexts during initial learning rather than the same example type repeatedly',
+          '"Where else?" as a standing instructional question: "Where else in your life, in other subjects, in the world could you apply this idea?"',
+          'Application tasks designed before the lesson: knowing the transfer task forces the teacher to teach toward transfer rather than toward reproduction',
+          'Real-world scenario problems that require using classroom knowledge in an unfamiliar context — with no prompts about which knowledge to use'
+        ]
+      },
+      {
+        title: 'Application vs. performance',
+        paragraphs: ['Application requires genuine cognitive engagement; performance requires skilled reproduction. The distinction matters most in assessment: a task that asks students to reproduce what they were taught assesses performance. A task that asks students to use what they were taught in a new context assesses application — and therefore assesses genuine understanding.', 'This is why transfer tasks are the gold standard of assessment for understanding. They cannot be passed through memorization alone. They require the kind of flexible, connected knowledge that only deep learning produces.'],
+        bullets: []
+      },
+      {
+        title: 'What it sounds like across grade levels',
+        paragraphs: [],
+        bullets: [
+          'K–2 (Math): "We learned how to count by 5s. The parking lot has 6 rows of 5 cars. How many cars? I didn\'t teach you this — but you have what you need to figure it out."',
+          '3–5 (ELA): Students have been studying persuasive writing. Task: write a genuine letter to the principal about something they want changed — not a practice prompt, a real one',
+          '6–8 (Science): Introduce a novel environmental problem the class has never studied. Students must apply the ecological principles they have learned to analyze and propose a solution — without being told which principles apply',
+          '9–12 (Any): Capstone tasks where students encounter genuinely novel problems that require integrating knowledge from multiple units — and where no single lesson provides the answer'
+        ]
+      }
+    ],
+    throughLine: 'Application is where learning becomes capability. It is the moment when something a student knows becomes something a student can do — and do in situations they have never practiced in before. Everything else in the framework builds toward this: knowledge that can be activated, elaborated, connected, retrieved, and tested is knowledge that can ultimately be applied. That is the goal.'
+  },
+
+  15: {
+    title: 'Error Analyzing',
+    subtitle: 'How students learn to treat mistakes as the most information-rich events in the learning cycle',
+    overview: 'Errors are not the opposite of learning — they are among its most powerful engines. A mistake made while genuinely attempting to understand something reveals exactly where the current understanding breaks down, which is precisely the information needed to repair and deepen it. Error Analyzing is the disposition to treat mistakes as diagnostic data: not to be ashamed of, not to be quickly covered over, but to be examined carefully for what they reveal.',
+    foundational: 'Research on learning from errors consistently shows that errors followed by reflection and correction produce stronger long-term retention than correct performance followed by reinforcement. The mechanism is cognitive: an error produces a gap between the student\'s current mental model and the accurate one, and the work of closing that gap — understanding why the error occurred and what the correct reasoning is — produces exactly the kind of active, effortful processing that encodes deeply. Errors that are simply marked wrong and returned, without analysis, leave the underlying misconception intact.',
+    sections: [
+      {
+        title: 'Why error avoidance undermines learning',
+        paragraphs: ['Most assessment systems are designed around error avoidance: students are rewarded for correct answers and penalized for incorrect ones, which creates a rational incentive to minimize risk rather than engage with difficulty. The student who avoids errors by staying in familiar territory, offering only confident answers, and declining to attempt what they are uncertain about will score well on many assessments — and learn far less than the student who attempts, errs, and analyzes.', 'Error Analyzing as a disposition requires a classroom culture that treats error not as failure but as information — and an assessment system that creates genuine incentives to engage with one\'s own mistakes rather than conceal them.'],
+        bullets: []
+      },
+      {
+        title: 'What it looks like in instruction',
+        paragraphs: ['Building Error Analyzing requires structural changes to how feedback and assessment work, not just exhortations to "learn from your mistakes."'],
+        bullets: [
+          'Error explanation requirements: every returned assessment includes a task — "For each error, describe: what you thought, what was wrong about it, and what the correct reasoning is"',
+          'Class error analysis: teacher aggregates the most common errors and presents them anonymously for the whole class to diagnose — "Here are three errors many of us made. What went wrong in each?"',
+          'Intentional error tasks: worked examples with deliberate errors for students to find and explain — shifts the cognitive framing from "here is the correct procedure" to "here is the thinking process and its failure points"',
+          'Error journals: students maintain a running record of their most significant errors across the year, looking for patterns in their own thinking',
+          'Revision cycles built into assessment: first submission, feedback, required revision — so that errors are always followed by the analysis and correction that makes them productive'
+        ]
+      },
+      {
+        title: 'Distinguishing careless errors from conceptual errors',
+        paragraphs: ['Not all errors are equally informative. A careless arithmetic slip in an otherwise correct procedure tells a different story than a systematic error that reveals a persistent misconception. Part of developing Error Analyzing as a disposition is learning to make this distinction — to ask not just "what did I get wrong?" but "what does this error tell me about what I actually believe about this concept?"', 'Systematic errors — those that appear across multiple problems or contexts — are the most valuable from a diagnostic standpoint. They reveal the underlying model the student is operating with, which is exactly what instruction needs to target.'],
+        bullets: []
+      },
+      {
+        title: 'What it sounds like across grade levels',
+        paragraphs: [],
+        bullets: [
+          'K–2 (Any): After a student makes an error: "I\'m really glad you tried that. Let\'s look at what happened. What were you thinking right here? Let\'s figure out together what got mixed up."',
+          '3–5 (Math): Students receive back a quiz and must sort their errors into two columns: "I understand what I did wrong" and "I still don\'t understand why this is wrong" — the second column becomes the teaching agenda',
+          '6–8 (Writing): Students identify the three most significant weaknesses in their draft essay — not mechanical errors, but reasoning or evidence problems — before receiving teacher feedback',
+          '9–12 (Any): Error analysis portfolios: students document their most significant errors across a semester, analyze what pattern they reveal about their thinking, and write a reflection on what changed'
+        ]
+      }
+    ],
+    throughLine: 'An error examined is an error that teaches. An error ignored or simply corrected is an error that will recur. Error Analyzing transforms the most uncomfortable moments in learning — the moments of being wrong — into the most productive ones. It is one of the most powerful things a student can learn to do with feedback, and one of the most neglected.'
+  },
+
+  16: {
+    title: 'Calibrating',
+    subtitle: 'How students develop accurate awareness of what they know and what they only think they know',
+    overview: 'One of the most dangerous states in learning is confident ignorance — the condition of feeling certain about something you have wrong, or of believing you have understood something you have only recognized. Calibrating is the metacognitive practice of accurately assessing one\'s own knowledge state: knowing not just what you know, but how well you know it, and being able to distinguish between the feeling of knowing and the ability to actually retrieve, explain, and apply.',
+    foundational: 'The illusion of knowing — the subjective feeling of understanding that can occur without genuine comprehension — is well-documented in cognitive psychology. Fluency with surface features of content (being able to recognize key terms, follow along with a lecture, or read a passage without confusion) creates a subjective sense of understanding that is not always matched by the ability to retrieve or apply the content independently. Students who are poorly calibrated study until the content feels familiar rather than until they can generate it — and are systematically surprised when their actual performance falls short of their prediction.',
+    sections: [
+      {
+        title: 'The fluency-familiarity trap',
+        paragraphs: ['The most common source of poor calibration in students is confusing familiarity with understanding. After reading a chapter, most students can recognize every key term if it appears in a multiple-choice question — and many mistake this recognition ability for genuine comprehension. The test of genuine comprehension is not recognition but generation: can you explain this in your own words, from memory, without prompts?', 'Calibration training requires deliberately exposing students to the gap between what they can recognize and what they can generate — repeatedly, at low stakes, so that they develop an accurate internal meter for genuine understanding.'],
+        bullets: []
+      },
+      {
+        title: 'What it looks like in instruction',
+        paragraphs: ['Calibration is developed through consistent practice of predicting one\'s own performance, attempting retrieval, and comparing the prediction to the outcome — creating an ongoing feedback loop between the student\'s self-model and their actual knowledge state.'],
+        bullets: [
+          'Confidence ratings: before submitting any answer, students rate their confidence on a 1–3 scale — then compare accuracy rates at each confidence level to diagnose their calibration',
+          'Predict-then-check retrieval: students predict what they will remember about a topic before attempting to recall it — then retrieve, then check their actual prediction against their actual recall',
+          'The "teaching it back" calibration test: if you truly understand something, you can explain it to someone who doesn\'t — if you can\'t, you don\'t understand it as well as you thought',
+          'Pre-test predictions: students predict their score before a test — and the comparison of predicted to actual score becomes a learning tool, not just an assessment outcome',
+          'Study planning based on gap analysis: students use calibration data to target their study time toward what they cannot yet generate, rather than reviewing what already feels familiar'
+        ]
+      },
+      {
+        title: 'Calibration and metacognition',
+        paragraphs: ['Calibrating is a metacognitive skill — it is thinking about thinking, specifically thinking about the accuracy of one\'s own self-assessment. Research on metacognition consistently shows that students with better-developed metacognitive awareness perform better academically — not because they know more, but because they allocate their learning effort more accurately.', 'Students who are well-calibrated do not waste time on content they already know firmly. They direct their effort precisely toward the gaps — which means their study time is more efficient, their preparation is more thorough, and their performance is more consistent.'],
+        bullets: []
+      },
+      {
+        title: 'What it sounds like across grade levels',
+        paragraphs: [],
+        bullets: [
+          'K–2 (Any): "Put your hand up if you\'re really sure. Now put one finger up if you\'re a little sure. Now open your hand if you\'re guessing. Let\'s see." — building the vocabulary of certainty levels',
+          '3–5 (Any): Before a quiz: "Go through each question and write R (remember), U (unsure), or D (don\'t know). Then answer all of them. At the end, check how accurate your ratings were."',
+          '6–8 (Any): Weekly calibration checks — students rate their understanding of each key concept on a 1–4 scale, attempt to explain each from memory, then adjust their rating based on what they actually could and couldn\'t do',
+          '9–12 (Any): Students design their own pre-exam study plan based on explicit calibration data — documenting what they know well, what they know partially, and what they cannot yet generate'
+        ]
+      }
+    ],
+    throughLine: 'Calibration is the foundation of self-directed learning. A student who cannot accurately assess their own knowledge state cannot make good decisions about how to study, what to ask, or where to focus their effort. Building accurate self-knowledge — the honest, evidence-based awareness of what one knows and doesn\'t know — is one of the most practical and transferable gifts an education can give.'
+  },
+
+  17: {
+    title: 'Revising Thinking',
+    subtitle: 'How students learn to treat their current understanding as a draft rather than a conclusion',
+    overview: 'Learning is not a single event — it is a process of successive approximation. Every understanding a student holds at any moment is a draft: a current best model that is always subject to revision in light of new evidence, feedback, or deeper thinking. Revising Thinking is the disposition to hold one\'s conclusions lightly, to actively look for reasons to update them, and to treat the act of publicly changing one\'s mind not as a sign of weakness but as evidence of intellectual engagement.',
+    foundational: 'Piaget\'s foundational work on cognitive development established that learning fundamentally involves the revision of existing mental models: either assimilating new information into existing schemas, or — more profoundly — accommodating by restructuring the schema itself when new information cannot be assimilated. The deepest learning is accommodative: it requires students to genuinely alter how they understand something, not just add to what they already know. This is cognitively demanding and emotionally challenging, because existing beliefs feel true and revision feels like loss. Revising Thinking as a cultivated disposition is specifically the practice of embracing that difficulty.', 
+    sections: [
+      {
+        title: 'The social cost of changing one\'s mind',
+        paragraphs: ['In many classroom cultures, changing one\'s mind carries social cost. A student who states a position and then revises it is vulnerable to the perception of inconsistency or incompetence. This social dynamic — the implicit rule that you should stand by what you said — actively works against the cognitive practice of genuine intellectual revision.', 'Building Revising Thinking as a classroom disposition requires explicitly inverting this dynamic: making it clear that changing one\'s mind in response to evidence is not a sign of weakness but a sign of intellectual integrity, and creating structures that make revision visible, celebrated, and expected.'],
+        bullets: []
+      },
+      {
+        title: 'What it looks like in instruction',
+        paragraphs: ['Revising Thinking is developed through structural habits that build revision into the normal rhythm of learning — so that it becomes expected and unremarkable rather than exceptional and threatening.'],
+        bullets: [
+          '"I used to think... but now I think... because..." as a standing sentence stem in discussion, writing, and exit tickets',
+          'Draft and revision cycles in all written work — with explicit attention to the reasoning behind revisions, not just the surface changes',
+          'Think-pair-share used specifically for revision: "Has anyone\'s thinking changed from what you thought before you talked to your partner?"',
+          'The "most changed" reflection: at the end of a unit, students identify the idea they were most wrong about at the beginning and trace how their thinking developed',
+          'Public modeling by the teacher: "I was thinking about this problem last night and I realized I had it wrong. Here is what changed my mind." — demonstrating that revision is a sign of continued engagement, not inadequacy'
+        ]
+      },
+      {
+        title: 'Revision vs. capitulation',
+        paragraphs: ['An important distinction: Revising Thinking means changing one\'s mind in response to evidence and reasoning — not changing one\'s mind because someone with authority said so, or because social pressure makes it uncomfortable to maintain a position. The first is intellectual growth; the second is intellectual submission.', 'Students need to develop the capacity to do both: to revise genuinely when the evidence requires it, and to hold firm when it doesn\'t. This requires teaching them to ask not "what does the teacher want me to think?" but "what do the evidence and reasoning actually support?" — which is a more difficult and more valuable skill.'],
+        bullets: []
+      },
+      {
+        title: 'What it sounds like across grade levels',
+        paragraphs: [],
+        bullets: [
+          'K–2 (Any): After new information is introduced: "Did anyone think something different before we learned this? What changed for you?" — normalizing revision at the earliest ages',
+          '3–5 (Science): Pre-unit surveys revisited at the end: students compare their beginning-of-unit beliefs to their current ones and explain in writing what changed and why',
+          '6–8 (ELA/Social studies): Annotated revision of a written argument — students mark every change they made and write a note explaining the reasoning behind it',
+          '9–12 (Any): Intellectual autobiography tasks: "Trace the development of your thinking on this topic across the unit — where were you at the beginning, what changed it, and where are you now?"'
+        ]
+      }
+    ],
+    throughLine: 'The student who revises thinking is not inconsistent — they are learning. Every genuine revision is evidence that new information was processed, integrated, and allowed to do its work. The goal of education is not a set of fixed conclusions; it is a developing capacity to hold understanding provisionally and update it honestly. Revising Thinking is the disposition that makes that capacity active rather than theoretical.'
+  },
+
+  18: {
+    title: 'Sustaining Focus',
+    subtitle: 'How students develop the capacity to remain in effortful thinking long enough for deep learning to occur',
+    overview: 'Deep cognitive processing takes time. An idea cannot be fully understood in a glance; an argument cannot be genuinely engaged with in a skimming read; a complex problem cannot be solved with a moment of attention. Sustaining Focus is the capacity to maintain effortful cognitive engagement with a difficult task long enough for genuine understanding to form — and it is both a prerequisite for deep learning and something that is increasingly under threat in an attention-fractured environment.',
+    foundational: 'Cognitive science research on deliberate practice — developed extensively by Anders Ericsson — establishes that the development of expertise in any domain requires extended periods of focused, effortful engagement with material at the edge of current capability. Shallow, interrupted engagement does not produce the same results regardless of total time spent. The quality and duration of focused attention matters independently of quantity. This is not only relevant to expert performance; it applies directly to classroom learning: students who can sustain focused attention on a cognitively demanding task for extended periods develop deeper understanding than those whose attention is fragmented, even when total instruction time is equivalent.',
+    sections: [
+      {
+        title: 'The attention economy and its effects on learning',
+        paragraphs: ['Students today are navigating an environment specifically designed to fragment attention — and the habits of mind that environment builds are in direct conflict with the demands of deep learning. The shift between tasks, the reflexive reach for distraction, the discomfort with silence and sustained effort — these are not character flaws; they are adaptations to an environment that rewards rapid attention-switching.', 'This means that Sustaining Focus must be taught and practiced as explicitly as any other disposition — not assumed, not demanded without scaffolding, but built incrementally through deliberate instructional design that gradually extends the demand for focused attention.'],
+        bullets: []
+      },
+      {
+        title: 'What it looks like in instruction',
+        paragraphs: ['Building Sustaining Focus requires treating it as a skill rather than a discipline problem: scaffolding the development of attention capacity rather than punishing its absence.'],
+        bullets: [
+          'Stamina-building sequences: begin the year with shorter sustained work periods and extend them gradually — charting the growth explicitly with students',
+          'Silent independent work as a daily practice — not as punishment or busywork, but as a deliberate exercise in focused cognitive engagement',
+          'Remove the escape routes: structured tasks with clear end goals but no opportunity for early exit — the work is not done until the thinking is done',
+          'Metacognitive check-ins during sustained work: "Notice what your brain is doing right now. Are you in the task? Have you drifted? Come back." — teaching self-monitoring of attention',
+          'Minimize multitasking opportunities during instruction — not as control but as cognitive courtesy: protecting the attentional space that deep learning requires'
+        ]
+      },
+      {
+        title: 'Focus and cognitive load',
+        paragraphs: ['One reason students struggle to sustain focus is cognitive overload — not lack of will, but a working memory that has been overwhelmed by the complexity of the task. A student whose cognitive resources are fully consumed by navigating an unclear task, managing anxiety about performance, or tracking excessive amounts of simultaneous information has nothing left over for the sustained engagement the learning requires.', 'This means that building Sustaining Focus requires, simultaneously, designing tasks with appropriate cognitive load — clear enough in their structure and expectations that the focus can be directed at the content rather than at figuring out what is being asked.'],
+        bullets: []
+      },
+      {
+        title: 'What it sounds like across grade levels',
+        paragraphs: [],
+        bullets: [
+          'K–2 (Any): Building from 5 to 15 minutes of sustained independent work across a year — with explicit naming: "We\'re building our thinking stamina, just like athletes build their physical stamina"',
+          '3–5 (Writing): Daily writing workshop with uninterrupted sustained writing time — students track their own stamina and celebrate growth in how long they can sustain focused work',
+          '6–8 (Any): Extended problem-solving sessions where students work independently on a single complex task for 20–40 minutes — with structured reflection afterward on what sustained them and what broke their focus',
+          '9–12 (Any): Independent research and writing tasks requiring multiple sustained work sessions — with explicit attention to the metacognitive practice of re-entering focus after interruption'
+        ]
+      }
+    ],
+    throughLine: 'Deep learning cannot happen in fragments. It requires time, and it requires the willingness to stay in the difficulty that effortful thinking demands. Sustaining Focus is not a compliance behavior or a test of character — it is a cognitive capacity that is built through practice, supported through instructional design, and essential to everything else in this framework.'
+  },
+
+  19: {
+    title: 'Reasoning Aloud',
+    subtitle: 'How making thinking visible transforms learning for both students and teachers',
+    overview: 'Most learning is invisible. It happens inside the mind of the learner, hidden from the teacher who is trying to support it and often hidden from the learner themselves. Reasoning Aloud — the practice of externalizing one\'s thinking as it unfolds — makes that invisible process visible. It is not about performing the right answer; it is about narrating the path taken to reach any answer, including wrong ones, dead ends, and moments of genuine uncertainty. That narration is among the most valuable cognitive and pedagogical tools available in a learning environment.',
+    foundational: 'Vygotsky\'s foundational work on the relationship between language and thought establishes that the act of articulating thinking in language is not merely a report on internal cognition — it actively shapes and organizes that cognition. Students who reason aloud are not just showing what they think; they are developing what they think, through the discipline of finding language for it. This is why the research on think-alouds and dialogic teaching consistently shows benefits not just for the teacher\'s diagnosis but for the student\'s own learning.',
+    sections: [
+      {
+        title: 'Reasoning aloud vs. performing the answer',
+        paragraphs: ['There is a fundamental difference between a student who says "the answer is 42" and a student who says "I noticed the problem said twice as many, so I knew I needed to multiply, but then I had to figure out what to multiply by, so I went back and reread..." The first student has delivered an output. The second student has made their cognitive process legible — and in doing so, has made it available for feedback, for self-correction, and for deeper development.', 'The goal of Reasoning Aloud is not to produce a verbal performance of confidence — it is to make the actual thinking process visible, including its uncertainty, its pivots, and its dead ends. A student who reasons aloud through a wrong answer is demonstrating more genuine cognitive engagement than a student who states a right answer silently.'],
+        bullets: []
+      },
+      {
+        title: 'What it looks like in instruction',
+        paragraphs: ['Building Reasoning Aloud as a disposition requires the teacher to model it first — consistently, authentically, and with genuine vulnerability about their own uncertainty — before asking students to do it.'],
+        bullets: [
+          'Teacher think-alouds as regular instructional events: "Let me show you what goes on in my head when I approach this kind of problem" — narrated slowly, including false starts and self-corrections',
+          '"Walk me through your thinking" as the standard teacher response to any student answer — correct or incorrect',
+          'Structured reasoning protocols: "First I noticed... then I thought... which led me to... but then I realized..." — sentence frames that scaffold the narration',
+          'Written think-alouds: students write their reasoning process as they work, not just their answers — the process document is submitted alongside the final answer',
+          'Pair reasoning: students narrate their thinking aloud to a partner while working — the partner\'s job is to listen and ask "why did you do that?" at each step'
+        ]
+      },
+      {
+        title: 'What teachers learn from hearing students reason',
+        paragraphs: ['When students reason aloud, teachers gain diagnostic access to the actual state of student understanding — which is almost always more complex, more partial, and more interesting than a correct or incorrect answer reveals. A student\'s wrong answer is a data point; their reasoning toward that wrong answer is a window into the specific misconception that instruction needs to target.', 'This is why Reasoning Aloud is not just a student learning tool but a pedagogical tool for teachers: it is the mechanism through which formative assessment can be genuinely formative — actually informing instruction in real time rather than confirming what was already suspected.'],
+        bullets: []
+      },
+      {
+        title: 'What it sounds like across grade levels',
+        paragraphs: [],
+        bullets: [
+          'K–2 (Math): "Talk me through what you\'re doing with your blocks. I want to hear your thinking, not just see your answer." Teacher models by thinking aloud first: "I see 4 here and 3 here. I\'m thinking about how to put them together..."',
+          '3–5 (Reading): "Read this paragraph and think out loud as you read — tell me what\'s confusing, what you\'re inferring, what questions you have as you go."',
+          '6–8 (Science/Math): Students solve a problem in pairs, narrating every step to each other — the listener must stop the narrator and ask "why?" at any point where the reasoning is unclear',
+          '9–12 (Any): Oral examinations or Socratic seminars where the quality of the reasoning — not just the correctness of the conclusion — is the primary assessment focus'
+        ]
+      }
+    ],
+    throughLine: 'Reasoning Aloud is how thinking becomes teachable. When thinking stays inside students\' heads, it is invisible to teachers, unavailable for feedback, and often invisible to students themselves. When it is externalized — narrated, written, discussed — it becomes something that can be developed, refined, and built upon. Making thinking visible is not a reporting mechanism; it is a learning mechanism.'
+  },
+
+  20: {
+    title: 'Intellectual Courage',
+    subtitle: 'The dispositional engine that makes all other effortful thinking possible',
+    overview: 'Intellectual Courage is positioned as disposition 20 for a reason: it is the dispositional engine that makes the other 19 possible. A student cannot practice Productive Struggling if they flee difficulty. They cannot practice Revising Thinking if they are afraid to be wrong in public. They cannot practice Reasoning Aloud if the social cost of an imperfect answer feels too high. Intellectual Courage is not one disposition among many — it is the condition under which all the others can be cultivated.',
+    foundational: 'Intellectual courage is specifically the willingness to take intellectual risks, engage in struggle, and remain open to revising one\'s thinking, and it is most powerfully cultivated when students genuinely believe that struggle and failure are opportunities for growth rather than signs of inadequacy. The challenge is that intellectual courage is both a prerequisite for effortful thinking and a product of it. Students who are repeatedly invited to think hard, given feedback, and allowed to revise develop it. Students who are never invited to take intellectual risks never get the chance to build it.',
+    sections: [
+      {
+        title: 'Separating intellectual safety from intellectual comfort',
+        paragraphs: ['One of the most important distinctions in building Intellectual Courage is that it requires intellectual safety but not intellectual comfort. These are not the same thing. Psychological safety — the belief that one can take interpersonal risks without fear of negative consequences — is foundational for learning and participation. When students feel safe, they engage more fully, ask for help when confused, and take the intellectual risks necessary for growth.', 'But intellectual safety is not the absence of challenge. It is the presence of trust — in the teacher, in their peers, and in the learning environment — that makes hard thinking feel worth attempting. The conditions for Intellectual Courage must be built before the cognitive demands that require it.'],
+        bullets: []
+      },
+      {
+        title: 'What it looks like in instruction',
+        paragraphs: ['Building Intellectual Courage requires both cultural work — establishing norms that make intellectual risk-taking safe — and instructional work — creating structures that make intellectual risk-taking necessary and rewarded.'],
+        bullets: [
+          'Teacher think-alouds that model intellectual vulnerability: narrating uncertainty, false starts, and genuine revision in real time — not as performance but as authentic modeling',
+          'The mastery-oriented classroom: framing the purpose of the work as getting smarter rather than demonstrating how smart you are — language that changes the stakes students perceive',
+          'Naming Intellectual Courage explicitly as a practice and a value: "What you just did — sharing that uncertain idea — is one of the most important things a thinker can do"',
+          '"I used to think... but now I think... because..." as a celebrated and frequently used sentence structure',
+          'Structural protection of intellectual risk: cold-calling only after processing time, so that students share thoughts they have already had rather than performing under real-time pressure'
+        ]
+      },
+      {
+        title: 'Assessment that measures and builds Intellectual Courage',
+        paragraphs: ['Intellectual Courage is not just something to cultivate — it is something that can be seen in student work and assessed with intention. The student who argues for a position they do not personally hold, who identifies the strongest counterargument to their own claim, who revises a previous written response and explains what changed — these are all visible, assessable demonstrations of intellectual courage.'],
+        bullets: [
+          'Tracking thinking over time through portfolios that include drafts, revisions, and annotations of changing thinking',
+          'Low-stakes formative tasks where the attempt is graded, not the accuracy — building the courage required for future participation',
+          'Discussion rubrics that explicitly reward intellectual risk-taking: genuine uncertainty shared, mind-changes named, counterarguments engaged',
+          '"What changed your mind?" as a graded exit prompt',
+          'Self-assessment: "Where did you push yourself to stay in the difficulty instead of giving up?"'
+        ]
+      },
+      {
+        title: 'What it sounds like across grade levels',
+        paragraphs: [],
+        bullets: [
+          'K–2: "It\'s brave to share an idea when you\'re not sure. Let\'s try." Teacher celebrates every uncertain contribution as evidence of intellectual courage, not as a wrong answer',
+          '3–5: "Changing your mind when you get new information is a sign of strong thinking, not weakness." Public celebration of mind-changes — the student who revised their thinking is recognized, not the student who was right from the start',
+          '6–8: "Intellectual courage means being willing to be wrong in public — and that is a skill, not a personality trait." Discussion rubrics that score intellectual risk-taking explicitly',
+          '9–12: "The strongest thinkers in any field are the ones most willing to have their ideas challenged and revised." Intellectual autobiography tasks that trace the development of thinking across a course'
+        ]
+      }
+    ],
+    throughLine: 'Intellectual Courage is the name for the orientation toward difficulty that makes genuine learning possible — the willingness to engage with hard ideas, to be wrong in public, to revise one\'s thinking in light of evidence, and to resist the pull toward easy answers. It is not a personality trait. It is a practice that can be taught, modeled, structured, assessed, and cultivated in every student, in every classroom, every year. Everything else in this framework depends on it.'
+  }
+
+};
+
+const CC={'1':'var(--c1)','2':'var(--c2)','3':'var(--c3)','4':'var(--c4)'};
+const CCL={'1':'var(--c1l)','2':'var(--c2l)','3':'var(--c3l)','4':'var(--c4l)'};
+const ROMANS=['I','II','III','IV'];
+let currentFilter='all',currentSearch='',activePanelId=null,activeDeepId=null;
+
+function esc(s){return String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');}
+
+function renderAll(){
+  const main=document.getElementById('main-content');
+  main.innerHTML='';
+  const filtered=DISPOSITIONS.filter(function(d){
+    const mc=currentFilter==='all'||d.cluster===currentFilter;
+    const ms=!currentSearch||d.title.toLowerCase().indexOf(currentSearch)>=0||d.tag.toLowerCase().indexOf(currentSearch)>=0||d.preview.toLowerCase().indexOf(currentSearch)>=0;
+    return mc&&ms;
+  });
+  const cls=currentFilter==='all'?['1','2','3','4']:[currentFilter];
+  cls.forEach(function(cid){
+    const cd=filtered.filter(function(d){return d.cluster===cid;});
+    if(!cd.length)return;
+    const cl=CLUSTERS.find(function(c){return c.id===cid;});
+    const sec=document.createElement('section');
+    sec.className='cluster-section';sec.dataset.c=cid;
+    sec.innerHTML='<div class="cluster-header-row"><span class="cluster-roman">'+cl.roman+'</span><span class="cluster-title">'+cl.title+'</span><span class="cluster-sub">'+cl.sub+'</span></div><div class="card-grid" id="grid-'+cid+'"></div>';
+    main.appendChild(sec);
+    const grid=sec.querySelector('#grid-'+cid);
+    cd.forEach(function(d){
+      const card=document.createElement('div');
+      card.className='disp-card';card.dataset.id=d.id;
+      card.innerHTML='<div class="card-num" style="color:'+CC[d.cluster]+'">Disposition '+d.num+'</div>'
+        +'<div class="card-title">'+d.title+'</div>'
+        +'<div class="card-preview">'+d.preview+'</div>'
+        +'<span class="card-tag" style="background:'+CCL[d.cluster]+';color:'+CC[d.cluster]+'">'+d.tag+'</span>'
+        +'<div class="card-btns">'
+        +'<button class="card-btn card-btn-quick" onclick="event.stopPropagation();openPanel('+d.id+')">Framework view</button>'
+        +'<button class="card-btn card-btn-deep" onclick="event.stopPropagation();openDeep('+d.id+')">In practice &#x2197;</button>'
+        +'</div>';
+      card.onclick=function(){openPanel(d.id);};
+      grid.appendChild(card);
+    });
+  });
+  if(!main.innerHTML)main.innerHTML='<p style="text-align:center;color:var(--ink-3);padding:3rem">No dispositions match your search.</p>';
+}
+function filterCluster(c){currentFilter=c;renderAll();window.scrollTo({top:0,behavior:'smooth'});}
+function handleSearch(v){currentSearch=v.toLowerCase().trim();renderAll();}
+
+function openPanel(id){
+  const d=DISPOSITIONS.find(function(x){return x.id===id;});if(!d)return;
+  activePanelId=id;
+  document.querySelectorAll('.disp-card').forEach(function(c){c.classList.remove('active');});
+  const ac=document.querySelector('[data-id="'+id+'"]');if(ac)ac.classList.add('active');
+  const inst=INST[id];const cc=CC[d.cluster];const ccl=CCL[d.cluster];
+  document.getElementById('panel-eyebrow').textContent='Cluster '+ROMANS[d.cluster-1]+' · Disposition '+d.num;
+  document.getElementById('panel-eyebrow').style.color=cc;
+  document.getElementById('panel-title').textContent=d.title;
+  const body=document.getElementById('panel-body');
+  body.style.setProperty('--panel-cc',cc);
+  let h='<span class="panel-tag" style="background:'+ccl+';color:'+cc+'">'+d.tag+'</span>';
+  h+='<div class="panel-section-label">Overview</div>';
+  h+='<p style="font-size:0.88rem;line-height:1.7;color:var(--ink-2)">'+d.preview+'</p>';
+  h+='<div class="panel-section-label">Instruction practices</div><ul>';
+  inst.ip.forEach(function(p){h+='<li>'+p+'</li>';});
+  h+='</ul><div class="panel-section-label">Assessment practices</div><ul>';
+  inst.ap.forEach(function(p){h+='<li>'+p+'</li>';});
+  h+='</ul><div class="panel-section-label">Across grade levels</div><div class="dev-grid">';
+  inst.db.forEach(function(b){h+='<div class="dev-cell"><div class="dev-cell-band">'+b.b+'</div><p>'+b.t+'</p></div>';});
+  h+='</div><div style="margin-top:1.5rem;padding-top:1rem;border-top:1px solid var(--border)">';
+  h+='<button onclick="openDeep('+id+')" style="font-family:var(--ff-body);font-size:0.8rem;font-weight:500;padding:0.65rem 1rem;border-radius:6px;border:1.5px solid '+cc+';color:'+cc+';background:transparent;cursor:pointer;width:100%">Open full In Practice view ↗</button></div>';
+  body.innerHTML=h;
+  document.getElementById('detail-panel').classList.add('open');
+  document.getElementById('overlay').classList.add('show');
+}
+function closePanel(){
+  document.getElementById('detail-panel').classList.remove('open');
+  document.getElementById('overlay').classList.remove('show');
+  document.querySelectorAll('.disp-card').forEach(function(c){c.classList.remove('active');});
+  activePanelId=null;
+}
+function navPanel(dir){
+  const ids=DISPOSITIONS.map(function(d){return d.id;});
+  openPanel(ids[(ids.indexOf(activePanelId)+dir+ids.length)%ids.length]);
+}
+
+function openDeep(id){
+  const d=DISPOSITIONS.find(function(x){return x.id===id;});
+  const dd=DEEPDIVES[id];
+  if(!d||!dd)return;
+  activeDeepId=id;
+  const cc=CC[d.cluster];
+  const panel=document.getElementById('deep-panel');
+  panel.style.setProperty('--deep-cc',cc);
+  document.getElementById('deep-eyebrow').textContent='Cluster '+ROMANS[d.cluster-1]+' · Disposition '+d.num+' · In Practice';
+  document.getElementById('deep-eyebrow').style.color=cc;
+  document.getElementById('deep-title').textContent=dd.title;
+  document.getElementById('deep-subtitle').textContent=dd.subtitle;
+  document.getElementById('deep-nav-label').textContent=d.num+' of 20';
+  const mainSecs=dd.sections.filter(function(s){
+    const tl=s.title.toLowerCase();
+    return tl.indexOf('sounds like')<0&&tl.indexOf('grade level')<0;
+  });
+  const navItems=['Overview & Foundation'].concat(mainSecs.map(function(s){return s.title;})).concat(['What It Sounds Like','Through-Line']);
+  document.getElementById('deep-sidebar').innerHTML=navItems.map(function(s,i){
+    return '<div class="deep-sidebar-item'+(i===0?' active':'')+'" data-sec="'+i+'" onclick="switchSection('+i+')">'+s+'</div>';
+  }).join('');
+  let h='<div class="deep-section visible" data-sec="0">'
+    +'<div class="deep-section-title">Overview &amp; Foundation</div>'
+    +'<p class="deep-p">'+dd.overview+'</p>'
+    +'<div class="deep-subsection-title">Why cognitive science supports this</div>'
+    +'<p class="deep-p">'+dd.foundational+'</p>'
+    +'</div>';
+  mainSecs.forEach(function(sec,i){
+    h+='<div class="deep-section" data-sec="'+(i+1)+'">';
+    h+='<div class="deep-section-title">'+sec.title+'</div>';
+    sec.paragraphs.forEach(function(p){h+='<p class="deep-p">'+p+'</p>';});
+    if(sec.bullets&&sec.bullets.length){
+      h+='<ul class="deep-ul">';
+      sec.bullets.forEach(function(b){h+='<li>'+b+'</li>';});
+      h+='</ul>';
+    }
+    h+='</div>';
+  });
+  const gradeSection=dd.sections[dd.sections.length-1];
+  const soundsIdx=mainSecs.length+1;
+  h+='<div class="deep-section" data-sec="'+soundsIdx+'">';
+  h+='<div class="deep-section-title">What It Sounds Like Across Grade Levels</div>';
+  h+='<div class="deep-sounds-grid">';
+  if(gradeSection&&gradeSection.bullets){
+    gradeSection.bullets.forEach(function(b){
+      const m=b.match(/^(K[–-]2|3[–-]5|6[–-]8|9[–-]12)/);
+      const band=m?m[0]:'All grades';
+      const text=m?b.slice(m[0].length).replace(/^s*[:(]s*/,''):b;
+      h+='<div class="deep-sound-card"><div class="deep-sound-band">'+band+'</div><div class="deep-sound-text">'+text+'</div></div>';
+    });
+  }
+  h+='</div></div>';
+  const tlIdx=soundsIdx+1;
+  h+='<div class="deep-section" data-sec="'+tlIdx+'">'
+    +'<div class="deep-section-title">Through-Line</div>'
+    +'<div class="deep-throughline"><p>'+dd.throughLine+'</p></div>'
+    +'</div>';
+  document.getElementById('deep-content').innerHTML=h;
+  panel.classList.add('open');
+  if(activePanelId){
+    document.getElementById('detail-panel').classList.remove('open');
+    document.getElementById('overlay').classList.remove('show');
+  }
+}
+function switchSection(idx){
+  document.querySelectorAll('.deep-section').forEach(function(s){s.classList.toggle('visible',parseInt(s.dataset.sec)===idx);});
+  document.querySelectorAll('.deep-sidebar-item').forEach(function(s){s.classList.toggle('active',parseInt(s.dataset.sec)===idx);});
+  document.getElementById('deep-content').scrollTop=0;
+}
+function closeDeep(){document.getElementById('deep-panel').classList.remove('open');activeDeepId=null;}
+function navDeep(dir){
+  const ids=DISPOSITIONS.map(function(d){return d.id;});
+  openDeep(ids[(ids.indexOf(activeDeepId)+dir+ids.length)%ids.length]);
+}
+function closeAll(){closePanel();}
+document.addEventListener('keydown',function(e){
+  if(e.key==='Escape'){if(activeDeepId)closeDeep();else closePanel();}
+  if(activeDeepId){if(e.key==='ArrowRight')navDeep(1);if(e.key==='ArrowLeft')navDeep(-1);}
+  else if(activePanelId){if(e.key==='ArrowRight')navPanel(1);if(e.key==='ArrowLeft')navPanel(-1);}
+});
+renderAll();
+</script>
+</body>
+</html>
