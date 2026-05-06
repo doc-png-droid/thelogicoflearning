@@ -1,0 +1,448 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Classroom Observation Tool — The Logic of Learning</title>
+<link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;1,9..40,300&display=swap" rel="stylesheet">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+<style>
+:root{
+  --bg:#F5F2EC;--surface:#FFFFFF;--ink:#1C1B18;--ink-2:#4A4843;--ink-3:#8C8A84;
+  --border:#E2DDD6;--accent:#2D4A3E;--c1:#2D4A3E;--c1l:#E6EFEC;
+  --c2:#4A3520;--c2l:#F0EAE0;--c3:#3A2D5C;--c3l:#EDE9F5;--c4:#5C2828;--c4l:#F5EAEA;
+  --ff-head:'DM Serif Display',Georgia,serif;--ff-body:'DM Sans',system-ui,sans-serif;
+  --r:10px;--shadow:0 2px 16px rgba(0,0,0,0.08);
+}
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
+body{font-family:var(--ff-body);background:var(--bg);color:var(--ink);min-height:100vh;}
+
+/* HEADER */
+header{background:var(--ink);color:#fff;padding:2.5rem 2rem 2rem;text-align:center;position:relative;overflow:hidden;}
+header::before{content:'';position:absolute;inset:0;background:repeating-linear-gradient(-45deg,transparent,transparent 40px,rgba(255,255,255,0.018) 40px,rgba(255,255,255,0.018) 80px);}
+.eyebrow{font-size:0.7rem;font-weight:500;letter-spacing:0.18em;text-transform:uppercase;color:rgba(255,255,255,0.5);margin-bottom:0.75rem;display:flex;justify-content:space-between;align-items:center;}
+.eyebrow a{color:rgba(255,255,255,0.5);text-decoration:none;transition:color 0.15s;}
+.eyebrow a:hover{color:rgba(255,255,255,0.85);}
+header h1{font-family:var(--ff-head);font-size:clamp(1.6rem,4vw,2.6rem);font-weight:400;line-height:1.15;position:relative;}
+header h1 em{font-style:italic;color:#A8C5B8;}
+header p.sub{margin-top:0.75rem;font-size:0.9rem;color:rgba(255,255,255,0.6);max-width:580px;margin-inline:auto;line-height:1.65;position:relative;}
+
+/* MAIN LAYOUT */
+main{max-width:960px;margin:0 auto;padding:2rem 1.25rem 4rem;}
+
+/* SECTION TITLES */
+.section-title{font-family:var(--ff-head);font-size:1.25rem;font-weight:400;color:var(--ink);margin-bottom:1rem;padding-bottom:0.5rem;border-bottom:2px solid var(--accent);}
+
+/* OBSERVER FORM */
+.obs-form{background:var(--surface);border:1.5px solid var(--border);border-radius:var(--r);padding:1.5rem;margin-bottom:2rem;box-shadow:var(--shadow);}
+.form-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(200px,1fr));gap:0.875rem;}
+.form-group{display:flex;flex-direction:column;gap:0.3rem;}
+.form-group label{font-size:0.7rem;font-weight:500;letter-spacing:0.1em;text-transform:uppercase;color:var(--ink-3);}
+.form-group input,.form-group select{font-family:var(--ff-body);font-size:0.88rem;padding:0.55rem 0.85rem;border:1.5px solid var(--border);border-radius:6px;background:var(--bg);color:var(--ink);outline:none;transition:border-color 0.15s;}
+.form-group input:focus,.form-group select:focus{border-color:var(--accent);}
+
+/* CLUSTER FILTER */
+.cluster-nav{display:flex;flex-wrap:wrap;gap:0.5rem;margin-bottom:1.25rem;}
+.cluster-btn{font-family:var(--ff-body);font-size:0.75rem;font-weight:500;letter-spacing:0.04em;text-transform:uppercase;padding:0.4rem 0.9rem;border-radius:999px;border:1.5px solid transparent;cursor:pointer;transition:all 0.18s;background:var(--surface);}
+.cluster-btn.all.active{background:var(--ink);color:#fff;border-color:var(--ink);}
+.cluster-btn.all{background:var(--surface);color:var(--ink-2);border-color:var(--border);}
+.cluster-btn[data-c="1"]{background:var(--c1l);color:var(--c1);border-color:var(--c1);}
+.cluster-btn[data-c="2"]{background:var(--c2l);color:var(--c2);border-color:var(--c2);}
+.cluster-btn[data-c="3"]{background:var(--c3l);color:var(--c3);border-color:var(--c3);}
+.cluster-btn[data-c="4"]{background:var(--c4l);color:var(--c4);border-color:var(--c4);}
+.cluster-btn:hover{opacity:0.75;}
+
+/* HABITS GRID */
+.habits-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(220px,1fr));gap:0.875rem;margin-bottom:2rem;}
+.habit-card{background:var(--surface);border:1.5px solid var(--border);border-radius:var(--r);padding:1rem 1.1rem;cursor:pointer;transition:all 0.18s;position:relative;overflow:hidden;}
+.habit-card::before{content:'';position:absolute;top:0;left:0;width:3px;height:100%;background:var(--hcc,var(--accent));opacity:0;transition:opacity 0.18s;}
+.habit-card:hover{box-shadow:var(--shadow);transform:translateY(-1px);border-color:var(--hcc,var(--accent));}
+.habit-card:hover::before{opacity:1;}
+.habit-card.selected{border-color:var(--hcc,var(--accent));box-shadow:0 0 0 2px var(--hcc,var(--accent));}
+.habit-card.selected::before{opacity:1;}
+.habit-num{font-size:0.65rem;font-weight:500;letter-spacing:0.1em;color:var(--hcc,var(--accent));text-transform:uppercase;margin-bottom:0.3rem;}
+.habit-name{font-family:var(--ff-head);font-size:0.95rem;line-height:1.2;color:var(--ink);margin-bottom:0.35rem;}
+.habit-tag{display:inline-block;font-size:0.62rem;font-weight:500;letter-spacing:0.06em;text-transform:uppercase;padding:0.18rem 0.5rem;border-radius:4px;background:var(--hccl,var(--c1l));color:var(--hcc,var(--c1));}
+.rating-row{display:flex;gap:0.4rem;margin-top:0.65rem;flex-wrap:wrap;}
+.rating-btn{font-family:var(--ff-body);font-size:0.62rem;font-weight:500;letter-spacing:0.04em;text-transform:uppercase;padding:0.22rem 0.6rem;border-radius:4px;border:1.5px solid var(--border);color:var(--ink-3);background:transparent;cursor:pointer;transition:all 0.15s;}
+.rating-btn:hover{border-color:var(--ink-2);color:var(--ink-2);}
+.rating-btn.r-strength{background:#E6EFEC;border-color:#2D4A3E;color:#2D4A3E;}
+.rating-btn.r-developing{background:#F0EAE0;border-color:#4A3520;color:#4A3520;}
+.rating-btn.r-absent{background:#F5EAEA;border-color:#5C2828;color:#5C2828;}
+.note-area{margin-top:0.6rem;}
+.note-area textarea{font-family:var(--ff-body);font-size:0.8rem;width:100%;padding:0.5rem 0.65rem;border:1.5px solid var(--border);border-radius:6px;background:var(--bg);color:var(--ink);resize:vertical;min-height:52px;outline:none;transition:border-color 0.15s;}
+.note-area textarea:focus{border-color:var(--accent);}
+
+/* SUMMARY */
+.summary-block{background:var(--surface);border:1.5px solid var(--border);border-radius:var(--r);padding:1.5rem;margin-bottom:2rem;box-shadow:var(--shadow);}
+.summary-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:0.875rem;margin-bottom:1.25rem;}
+.sum-card{background:var(--bg);border-radius:8px;padding:1rem;text-align:center;}
+.sum-val{font-family:var(--ff-head);font-size:2rem;font-weight:400;color:var(--ink);}
+.sum-val.str{color:#2D4A3E;}
+.sum-val.dev{color:#4A3520;}
+.sum-val.abs{color:#5C2828;}
+.sum-label{font-size:0.7rem;font-weight:500;letter-spacing:0.08em;text-transform:uppercase;color:var(--ink-3);margin-top:0.25rem;}
+
+/* ACTIONS */
+.actions{display:flex;gap:0.875rem;flex-wrap:wrap;}
+.btn{font-family:var(--ff-body);font-size:0.82rem;font-weight:500;padding:0.65rem 1.25rem;border-radius:6px;cursor:pointer;transition:all 0.15s;border:1.5px solid;}
+.btn-outline{background:transparent;border-color:var(--border);color:var(--ink-2);}
+.btn-outline:hover{background:var(--bg);border-color:var(--ink-3);}
+.btn-primary{background:var(--accent);border-color:var(--accent);color:#fff;}
+.btn-primary:hover{background:#1e3429;border-color:#1e3429;}
+
+/* FOOTER */
+footer{text-align:center;font-size:0.75rem;color:var(--ink-3);padding:2rem;background:var(--ink);color:rgba(255,255,255,0.5);}
+footer a{color:#A8C5B8;text-decoration:none;}
+
+@media(max-width:600px){
+  .summary-grid{grid-template-columns:repeat(2,1fr);}
+  .habits-grid{grid-template-columns:1fr 1fr;}
+  .form-grid{grid-template-columns:1fr;}
+}
+</style>
+</head>
+<body>
+
+<header>
+  <div class="eyebrow">
+    <a href="/">&#x2190; The Logic of Learning</a>
+    <span>Classroom Observation Tool</span>
+  </div>
+  <h1>Classroom Observation<br><em>Effortful Thinking Habits</em></h1>
+  <p class="sub">Tag which of the 20 habits you observe during a walkthrough, rate each, add notes, and generate a PDF report.</p>
+</header>
+
+<main>
+
+  <!-- OBSERVER DETAILS -->
+  <div class="obs-form">
+    <div class="section-title" style="margin-bottom:1.25rem;">Observation details</div>
+    <div class="form-grid">
+      <div class="form-group">
+        <label>Teacher name</label>
+        <input type="text" id="f-teacher" placeholder="e.g. Ms. Kim" />
+      </div>
+      <div class="form-group">
+        <label>Subject / Class</label>
+        <input type="text" id="f-subject" placeholder="e.g. Grade 9 English" />
+      </div>
+      <div class="form-group">
+        <label>Grade level</label>
+        <input type="text" id="f-grade" placeholder="e.g. 9–12" />
+      </div>
+      <div class="form-group">
+        <label>Date</label>
+        <input type="date" id="f-date" />
+      </div>
+      <div class="form-group">
+        <label>Observation type</label>
+        <select id="f-type">
+          <option value="">Select…</option>
+          <option>Formal walkthrough</option>
+          <option>Informal drop-in</option>
+          <option>Coaching visit</option>
+          <option>Admin review</option>
+          <option>Peer observation</option>
+        </select>
+      </div>
+      <div class="form-group">
+        <label>Observer name</label>
+        <input type="text" id="f-observer" placeholder="Your name" />
+      </div>
+    </div>
+  </div>
+
+  <!-- HABITS -->
+  <div class="section-title">Tag habits observed</div>
+  <p style="font-size:0.85rem;color:var(--ink-3);margin-bottom:1rem;line-height:1.6;">Click any habit to tag it as observed. Expand to rate it and add notes. Filter by cluster below.</p>
+
+  <div class="cluster-nav">
+    <button class="cluster-btn all active" onclick="setFilter('all',this)">All 20</button>
+    <button class="cluster-btn" data-c="1" onclick="setFilter('1',this)">I · Encounter &amp; Processing</button>
+    <button class="cluster-btn" data-c="2" onclick="setFilter('2',this)">II · Building &amp; Connecting</button>
+    <button class="cluster-btn" data-c="3" onclick="setFilter('3',this)">III · Retrieving &amp; Testing</button>
+    <button class="cluster-btn" data-c="4" onclick="setFilter('4',this)">IV · Monitoring &amp; Regulating</button>
+  </div>
+
+  <div class="habits-grid" id="habits-grid"></div>
+
+  <!-- SUMMARY -->
+  <div class="summary-block">
+    <div class="section-title" style="margin-bottom:1.25rem;">Summary</div>
+    <div class="summary-grid">
+      <div class="sum-card">
+        <div class="sum-val" id="s-total">0</div>
+        <div class="sum-label">Habits tagged</div>
+      </div>
+      <div class="sum-card">
+        <div class="sum-val str" id="s-str">0</div>
+        <div class="sum-label">Strength</div>
+      </div>
+      <div class="sum-card">
+        <div class="sum-val dev" id="s-dev">0</div>
+        <div class="sum-label">Developing</div>
+      </div>
+      <div class="sum-card">
+        <div class="sum-val abs" id="s-abs">0</div>
+        <div class="sum-label">Not evident</div>
+      </div>
+    </div>
+    <div class="actions">
+      <button class="btn btn-outline" onclick="clearAll()">Clear all tags</button>
+      <button class="btn btn-primary" onclick="generatePDF()">Download PDF report ↓</button>
+    </div>
+  </div>
+
+</main>
+
+<footer>
+  <p><a href="/">The Logic of Learning — Effortful Thinking Habits</a> · Classroom Observation Tool · Created 2026</p>
+</footer>
+
+<script>
+const CC={'1':'#2D4A3E','2':'#4A3520','3':'#3A2D5C','4':'#5C2828'};
+const CCL={'1':'#E6EFEC','2':'#F0EAE0','3':'#EDE9F5','4':'#F5EAEA'};
+const ROMANS=['I','II','III','IV'];
+const CLUSTERS=[
+  {id:'1',title:'Encounter & Processing'},
+  {id:'2',title:'Building & Connecting'},
+  {id:'3',title:'Retrieving & Testing'},
+  {id:'4',title:'Monitoring & Regulating'},
+];
+const HABITS=[
+  {id:1,cluster:'1',num:'01',name:'Prior Knowledge Activating',tag:'cognitive anchor'},
+  {id:2,cluster:'1',num:'02',name:'Meaning-Making',tag:'depth of processing'},
+  {id:3,cluster:'1',num:'03',name:'Purposeful Attending',tag:'cognitive load management'},
+  {id:4,cluster:'1',num:'04',name:'Productive Struggling',tag:'desirable difficulty'},
+  {id:5,cluster:'1',num:'05',name:'Questioning Deeply',tag:'effortful inquiry'},
+  {id:6,cluster:'2',num:'06',name:'Elaborating',tag:'knowledge construction'},
+  {id:7,cluster:'2',num:'07',name:'Connecting Across Concepts',tag:'schema-building'},
+  {id:8,cluster:'2',num:'08',name:'Analogical Reasoning',tag:'mental model formation'},
+  {id:9,cluster:'2',num:'09',name:'Principled Explaining',tag:'deep encoding'},
+  {id:10,cluster:'2',num:'10',name:'Contrasting Cases',tag:'discrimination learning'},
+  {id:11,cluster:'3',num:'11',name:'Effortful Recalling',tag:'retrieval practice'},
+  {id:12,cluster:'3',num:'12',name:'Predicting',tag:'generative learning'},
+  {id:13,cluster:'3',num:'13',name:'Hypothesis Testing',tag:'evidence-based reasoning'},
+  {id:14,cluster:'3',num:'14',name:'Applying',tag:'transfer'},
+  {id:15,cluster:'3',num:'15',name:'Error Analyzing',tag:'feedback processing'},
+  {id:16,cluster:'4',num:'16',name:'Calibrating',tag:'metacognitive accuracy'},
+  {id:17,cluster:'4',num:'17',name:'Revising Thinking',tag:'adaptive thinking'},
+  {id:18,cluster:'4',num:'18',name:'Sustaining Focus',tag:'cognitive persistence'},
+  {id:19,cluster:'4',num:'19',name:'Reasoning Aloud',tag:'visible thinking'},
+  {id:20,cluster:'4',num:'20',name:'Intellectual Courage',tag:'learning identity'},
+];
+
+// state: for each habit, track selected, rating, note
+var state={};
+HABITS.forEach(function(h){state[h.id]={selected:false,rating:null,note:''};});
+
+var activeFilter='all';
+
+function setFilter(f,btn){
+  activeFilter=f;
+  document.querySelectorAll('.cluster-btn').forEach(function(b){
+    b.classList.remove('active');
+    if(b===btn)b.classList.add('active');
+  });
+  renderGrid();
+}
+
+function renderGrid(){
+  var grid=document.getElementById('habits-grid');
+  grid.innerHTML='';
+  var list=activeFilter==='all'?HABITS:HABITS.filter(function(h){return h.cluster===activeFilter;});
+  list.forEach(function(h){
+    var s=state[h.id];
+    var cc=CC[h.cluster];var ccl=CCL[h.cluster];
+    var card=document.createElement('div');
+    card.className='habit-card'+(s.selected?' selected':'');
+    card.style.setProperty('--hcc',cc);
+    card.style.setProperty('--hccl',ccl);
+    card.dataset.id=h.id;
+
+    var inner='<div class="habit-num">Habit '+h.num+'</div>';
+    inner+='<div class="habit-name">'+h.name+'</div>';
+    inner+='<span class="habit-tag">'+h.tag+'</span>';
+
+    if(s.selected){
+      inner+='<div class="rating-row">';
+      inner+='<button class="rating-btn'+(s.rating==='strength'?' r-strength':'')+'" data-r="strength">Strength</button>';
+      inner+='<button class="rating-btn'+(s.rating==='developing'?' r-developing':'')+'" data-r="developing">Developing</button>';
+      inner+='<button class="rating-btn'+(s.rating==='absent'?' r-absent':'')+'" data-r="absent">Not evident</button>';
+      inner+='</div>';
+      inner+='<div class="note-area"><textarea placeholder="Add observation notes…" data-id="'+h.id+'">'+s.note+'</textarea></div>';
+    }
+
+    card.innerHTML=inner;
+
+    // click header to toggle
+    card.querySelector('.habit-name').addEventListener('click',function(e){
+      e.stopPropagation();toggleHabit(h.id);
+    });
+    card.querySelector('.habit-num').addEventListener('click',function(e){
+      e.stopPropagation();toggleHabit(h.id);
+    });
+    card.querySelector('.habit-tag').addEventListener('click',function(e){
+      e.stopPropagation();toggleHabit(h.id);
+    });
+
+    if(s.selected){
+      card.querySelectorAll('.rating-btn').forEach(function(btn){
+        btn.addEventListener('click',function(e){
+          e.stopPropagation();
+          setRating(h.id,btn.dataset.r);
+        });
+      });
+      card.querySelector('textarea').addEventListener('input',function(e){
+        state[h.id].note=e.target.value;
+      });
+      card.querySelector('textarea').addEventListener('click',function(e){e.stopPropagation();});
+    }
+
+    grid.appendChild(card);
+  });
+  updateSummary();
+}
+
+function toggleHabit(id){
+  state[id].selected=!state[id].selected;
+  if(!state[id].selected){state[id].rating=null;state[id].note='';}
+  renderGrid();
+}
+
+function setRating(id,r){
+  state[id].rating=state[id].rating===r?null:r;
+  renderGrid();
+}
+
+function updateSummary(){
+  var tagged=HABITS.filter(function(h){return state[h.id].selected;});
+  document.getElementById('s-total').textContent=tagged.length;
+  document.getElementById('s-str').textContent=tagged.filter(function(h){return state[h.id].rating==='strength';}).length;
+  document.getElementById('s-dev').textContent=tagged.filter(function(h){return state[h.id].rating==='developing';}).length;
+  document.getElementById('s-abs').textContent=tagged.filter(function(h){return state[h.id].rating==='absent';}).length;
+}
+
+function clearAll(){
+  HABITS.forEach(function(h){state[h.id]={selected:false,rating:null,note:''};});
+  renderGrid();
+}
+
+function generatePDF(){
+  var jsPDF=window.jspdf.jsPDF;
+  var doc=new jsPDF({unit:'mm',format:'a4'});
+  var teacher=document.getElementById('f-teacher').value||'—';
+  var subject=document.getElementById('f-subject').value||'—';
+  var grade=document.getElementById('f-grade').value||'—';
+  var date=document.getElementById('f-date').value||'—';
+  var type=document.getElementById('f-type').value||'—';
+  var observer=document.getElementById('f-observer').value||'—';
+
+  var tagged=HABITS.filter(function(h){return state[h.id].selected;});
+  var strength=tagged.filter(function(h){return state[h.id].rating==='strength';});
+  var developing=tagged.filter(function(h){return state[h.id].rating==='developing';});
+  var absent=tagged.filter(function(h){return state[h.id].rating==='absent';});
+  var unrated=tagged.filter(function(h){return !state[h.id].rating;});
+
+  var y=18;
+
+  // Header bar
+  doc.setFillColor(28,27,24);
+  doc.rect(0,0,210,28,'F');
+  doc.setFont('helvetica','bold');
+  doc.setFontSize(14);
+  doc.setTextColor(168,197,184);
+  doc.text('The Logic of Learning',14,12);
+  doc.setFont('helvetica','normal');
+  doc.setFontSize(9);
+  doc.setTextColor(200,200,190);
+  doc.text('Effortful Thinking Habits — Classroom Observation Report',14,20);
+  y=36;
+
+  // Meta fields
+  doc.setFont('helvetica','normal');doc.setFontSize(9.5);doc.setTextColor(80,80,75);
+  var meta=[['Teacher',teacher],['Subject / Class',subject],['Grade',grade],['Date',date],['Observation type',type],['Observer',observer]];
+  meta.forEach(function(m){
+    doc.setFont('helvetica','bold');doc.setTextColor(60,60,55);doc.text(m[0]+':',14,y);
+    doc.setFont('helvetica','normal');doc.setTextColor(80,80,75);doc.text(m[1],58,y);
+    y+=5.5;
+  });
+  y+=3;
+  doc.setDrawColor(220,217,210);doc.setLineWidth(0.4);doc.line(14,y,196,y);y+=7;
+
+  // Summary boxes
+  var boxes=[
+    {label:'Habits tagged',val:tagged.length,r:60,g:60,b:55},
+    {label:'Strength',val:strength.length,r:45,g:74,b:62},
+    {label:'Developing',val:74,g:53,b:32,r:74},
+    {label:'Not evident',val:absent.length,r:92,g:40,b:40},
+  ];
+  boxes[2].r=74;boxes[2].g=53;boxes[2].b=32;
+  var summaryData=[
+    {label:'Habits tagged',val:tagged.length,r:60,g:60,b:55},
+    {label:'Strength',val:strength.length,r:45,g:74,b:62},
+    {label:'Developing',val:developing.length,r:74,g:53,b:32},
+    {label:'Not evident',val:absent.length,r:92,g:40,b:40},
+  ];
+  summaryData.forEach(function(b,i){
+    var x=14+i*47;
+    doc.setFillColor(245,242,236);doc.roundedRect(x,y,44,18,2,2,'F');
+    doc.setFont('helvetica','bold');doc.setFontSize(16);doc.setTextColor(b.r,b.g,b.b);
+    doc.text(String(b.val),x+22,y+10,{align:'center'});
+    doc.setFont('helvetica','normal');doc.setFontSize(8);doc.setTextColor(140,138,132);
+    doc.text(b.label,x+22,y+15.5,{align:'center'});
+  });
+  y+=25;
+
+  function pdfSection(title,items,r,g,b){
+    if(!items.length)return;
+    if(y>268){doc.addPage();y=18;}
+    doc.setFont('helvetica','bold');doc.setFontSize(10.5);doc.setTextColor(r,g,b);
+    doc.text(title,14,y);y+=2;
+    doc.setDrawColor(r,g,b);doc.setLineWidth(0.5);doc.line(14,y,196,y);y+=5;
+    items.forEach(function(h){
+      if(y>272){doc.addPage();y=18;}
+      var cl=CLUSTERS.find(function(c){return c.id===h.cluster;});
+      doc.setFont('helvetica','bold');doc.setFontSize(9.5);doc.setTextColor(30,30,25);
+      doc.text('Habit '+h.num+' — '+h.name,16,y);y+=4.5;
+      doc.setFont('helvetica','italic');doc.setFontSize(8.5);doc.setTextColor(140,138,132);
+      doc.text(h.tag+' · Cluster '+ROMANS[parseInt(h.cluster)-1]+': '+cl.title,16,y);y+=4.5;
+      var note=state[h.id].note;
+      if(note){
+        doc.setFont('helvetica','normal');doc.setFontSize(8.5);doc.setTextColor(74,72,67);
+        var lines=doc.splitTextToSize('Notes: '+note,168);
+        lines.forEach(function(l){
+          if(y>272){doc.addPage();y=18;}
+          doc.text(l,16,y);y+=4.5;
+        });
+      }
+      y+=3;
+    });
+    y+=4;
+  }
+
+  pdfSection('Strengths observed',strength,45,74,62);
+  pdfSection('Developing — further support suggested',developing,74,53,32);
+  pdfSection('Not yet evident',absent,92,40,40);
+  pdfSection('Observed — not yet rated',unrated,100,100,95);
+
+  // Footer
+  if(y>272){doc.addPage();y=18;}
+  doc.setDrawColor(220,217,210);doc.line(14,y,196,y);y+=5;
+  doc.setFont('helvetica','normal');doc.setFontSize(7.5);doc.setTextColor(160,158,154);
+  doc.text('The Logic of Learning — Effortful Thinking Habits · thelogicoflearning.netlify.app',14,y);
+  doc.text(new Date().toLocaleDateString(),196,y,{align:'right'});
+
+  var fname='observation-'+(teacher.replace(/\s+/g,'-').toLowerCase()||'report')+'-'+(date||'draft')+'.pdf';
+  doc.save(fname);
+}
+
+// Set default date to today
+var today=new Date().toISOString().split('T')[0];
+document.getElementById('f-date').value=today;
+
+renderGrid();
+</script>
+</body>
+</html>
